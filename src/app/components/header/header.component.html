@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <a [routerLink]="'/'">
+      <h1>UHK@2020</h1>
+    </a>
+    <div>
+      <a mat-button [routerLink]="'/uzivatele'" routerLinkActive="active"> uživatelé </a>
+      <a mat-button [routerLink]="'/majetek'" routerLinkActive="active"> majetek </a>
+    </div>
+    <span fxFlex></span>
+    <button mat-icon-button (click)="openLogin()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
++
