@@ -3,9 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import {UzivateleComponent} from './components/uzivatele/uzivatele.component';
 import {UzivatelDetailComponent} from './components/uzivatele/uzivatel-detail/uzivatel-detail.component';
 import {UzivateleListComponent} from './components/uzivatele/uzivatele-list/uzivatele-list.component';
-import {MajetekComponent} from './components/majetek/majetek.component';
 import {MainpageComponent} from './components/mainpage/mainpage.component';
 import {ZalozitUcetComponent} from './components/uzivatele/zalozit-ucet/zalozit-ucet.component';
+import {KazaniComponent} from "./components/kazani/kazani.component";
+import {ChvalyComponent} from "./components/chvaly/chvaly.component";
+import { KazaniListComponent } from './components/kazani/kazani-list/kazani-list.component';
+import {KazaniDetailComponent} from "./components/kazani/kazani-detail/kazani-detail.component";
+import { ChvalyListComponent } from './components/chvaly/chvaly-list/chvaly-list.component';
 
 /**
  * cesty
@@ -13,11 +17,15 @@ import {ZalozitUcetComponent} from './components/uzivatele/zalozit-ucet/zalozit-
  */
 const routes: Routes = [
   {path: '', pathMatch: 'full', component: MainpageComponent},
-  {path: 'majetek', component: MajetekComponent},
+  {path: 'kazani', component: KazaniComponent, children: [
+     {path: '', pathMatch: 'full', component: KazaniListComponent},
+      {path: ':id', component: KazaniDetailComponent}
+    ]},
+  {path: 'chvaly', component: ChvalyComponent, children: [
+      {path: '' , pathMatch: 'full', component: ChvalyListComponent},
+    ]},
   {path: 'uzivatele', component: UzivateleComponent, children: [
-      {path: '' , pathMatch: 'full', component: UzivateleListComponent},
-      {path: 'zalozit-ucet', component: ZalozitUcetComponent},
-      {path: ':id', component: UzivatelDetailComponent}
+      {path: 'zalozit-ucet', component: ZalozitUcetComponent}
     ]}
 ];
 

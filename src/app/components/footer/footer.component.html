@@ -1,16 +1,17 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row class="webContainer">
+  <mat-toolbar-row>
+    <a [routerLink]="'/'">
+      <h1>Main page</h1>
+    </a>
     <div>
-      <a mat-button [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
       <a mat-button [routerLink]="'/kazani'" routerLinkActive="active">Kázání</a>
       <a mat-button [routerLink]="'/chvaly'" routerLinkActive="active">Chvály</a>
     </div>
     <span fxFlex></span>
-    <button mat-icon-button (click)="openLogin()">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-
+    <span>
+      Studentský zápočtový projekt - Milan Knop
+      <mat-icon>favorite</mat-icon>
+      UHK@2020
+    </span>
   </mat-toolbar-row>
-
 </mat-toolbar>
-

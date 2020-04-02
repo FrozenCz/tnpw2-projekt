@@ -8,7 +8,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { UzivateleComponent } from './components/uzivatele/uzivatele.component';
 import { UzivateleListComponent } from './components/uzivatele/uzivatele-list/uzivatele-list.component';
 import { UzivatelDetailComponent } from './components/uzivatele/uzivatel-detail/uzivatel-detail.component';
-import { MajetekComponent } from './components/majetek/majetek.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { LoginDialogComponent } from './components/dialog/login-dialog/login-dialog.component';
 
@@ -21,6 +20,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { ZalozitUcetComponent } from './components/uzivatele/zalozit-ucet/zalozit-ucet.component';
+import { KazaniComponent } from './components/kazani/kazani.component';
+import { ChvalyComponent } from './components/chvaly/chvaly.component';
+import { KazaniListComponent } from './components/kazani/kazani-list/kazani-list.component';
+import { KazaniDetailComponent } from './components/kazani/kazani-detail/kazani-detail.component';
+import { ChvalyListComponent } from './components/chvaly/chvaly-list/chvaly-list.component';
+import { FooterComponent } from './components/footer/footer.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -29,10 +35,15 @@ import { ZalozitUcetComponent } from './components/uzivatele/zalozit-ucet/zalozi
     UzivateleComponent,
     UzivateleListComponent,
     UzivatelDetailComponent,
-    MajetekComponent,
     MainpageComponent,
     LoginDialogComponent,
-    ZalozitUcetComponent
+    ZalozitUcetComponent,
+    KazaniComponent,
+    ChvalyComponent,
+    KazaniListComponent,
+    KazaniDetailComponent,
+    ChvalyListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +57,8 @@ import { ZalozitUcetComponent } from './components/uzivatele/zalozit-ucet/zalozi
     MatInputModule,
     MatButtonModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
