@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {AuthService} from "../../../services/auth.service";
 import {LoginDataInterface} from "../../../interfaces/LoginDataInterface";
+import {UzivatelModel} from "../../../model/uzivatel.model";
 
 
 
@@ -18,15 +19,8 @@ export class LoginDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLoginClick(): void {
-    this.authService.logIn(this.data).toPromise()
-      .then((result) => {
-        console.log('jsem tu ');
-      })
-      .catch(() => {
-        alert('chyba');
-      });
-  // this.dialogRef.close(this.data);
+  onLoginClick(): Promise<UzivatelModel> {
+   return this.authService.logIn(this.data).toPromise();
   }
 
   onNoClick(): void {

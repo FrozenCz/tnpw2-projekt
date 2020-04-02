@@ -18,12 +18,9 @@ export class AuthService {
 
   logIn(data: LoginDataInterface): Observable<UzivatelModel>{
     //TODO: dodelat prihlaseni pres server
-    console.log(data);
     if(data.nickname == 'test' && data.password == '123'){
       this.logged.next(this.fakeUser);
-      return this.isLogged;
-    }else{
-      return this.isLogged;
     }
+    return this.isLogged;
   }
 }
