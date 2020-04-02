@@ -21,8 +21,9 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('dialog was closed');
-      console.log(result);
+      if(result) {
+        console.log(result);
+      }
     })
   }
 }

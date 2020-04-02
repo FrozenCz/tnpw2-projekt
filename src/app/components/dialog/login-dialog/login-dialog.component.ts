@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {AuthService} from "../../../services/auth.service";
+import {LoginDataInterface} from "../../../interfaces/LoginDataInterface";
 
-interface LoginDialogData {
-  nickname, password: string
-}
+
 
 @Component({
   selector: 'app-login-dialog',
@@ -11,9 +11,22 @@ interface LoginDialogData {
   styleUrls: ['./login-dialog.component.scss']
 })
 export class LoginDialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<LoginDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: LoginDialogData) { }
+  constructor(public dialogRef: MatDialogRef<LoginDialogComponent>, private authService: AuthService) { }
+
+  public data: LoginDataInterface = {nickname: '', password: ''};
 
   ngOnInit(): void {
+  }
+
+  onLoginClick(): void {
+    this.authService.logIn(this.data).toPromise()
+      .then((result) => {
+        console.log('jsem tu ');
+      })
+      .catch(() => {
+        alert('chyba');
+      });
+  // this.dialogRef.close(this.data);
   }
 
   onNoClick(): void {
