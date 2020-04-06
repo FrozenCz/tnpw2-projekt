@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {KazaniService} from "../../../services/kazani.service";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-kazani-list',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KazaniListComponent implements OnInit {
 
-  constructor() { }
+  safeSrc: SafeResourceUrl;
+  constructor(public kazaniService: KazaniService, private sanitizer: DomSanitizer) {
+    this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/pY2SGccvXGY");
+  }
 
   ngOnInit(): void {
   }

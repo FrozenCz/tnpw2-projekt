@@ -28,6 +28,7 @@ import { ChvalyListComponent } from './components/chvaly/chvaly-list/chvaly-list
 import { FooterComponent } from './components/footer/footer.component';
 import {MatListModule} from "@angular/material/list";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     FlexLayoutModule,
     ReactiveFormsModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
