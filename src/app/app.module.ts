@@ -29,6 +29,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import {MatListModule} from "@angular/material/list";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatCardModule} from "@angular/material/card";
+import {SafeUrlPipe} from './pipes/safe-url.pipe';
+import {YouTubePlayerModule} from '@angular/youtube-player';
+import {YoutubeIdExtractPipe} from './pipes/youtubeIdExtract.pipe';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +49,9 @@ import {MatCardModule} from "@angular/material/card";
     KazaniListComponent,
     KazaniDetailComponent,
     ChvalyListComponent,
-    FooterComponent
+    FooterComponent,
+    SafeUrlPipe,
+    YoutubeIdExtractPipe
   ],
   imports: [
     BrowserModule,
@@ -63,6 +69,7 @@ import {MatCardModule} from "@angular/material/card";
     MatListModule,
     MatSnackBarModule,
     MatCardModule,
+    YouTubePlayerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
