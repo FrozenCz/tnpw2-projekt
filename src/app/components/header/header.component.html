@@ -7,6 +7,7 @@
     </div>
     <span fxFlex></span>
     <div>
+      <a mat-button *ngIf="loggedUser" [routerLink]="'/ucet'" routerLinkActive="active">Můj účet</a>
       <a mat-button [routerLink]="'/kontakt'" routerLinkActive="active">Kontakt</a>
       <button mat-icon-button (click)="openLogin()">
         <mat-icon>account_circle</mat-icon>

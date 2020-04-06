@@ -3,8 +3,8 @@
  */
 export class UzivatelModel{
   private id: number;
-  private email: string;
-  private token: string;
+  email: string;
+  token: string;
   private overen: boolean;
 
   constructor(id: number, email: string, token: string, overen: boolean) {

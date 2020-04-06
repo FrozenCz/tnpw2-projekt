@@ -49,3 +49,12 @@ html{
 a.active {
   background: rgba(mat-color($candy-app-primary, 50), 0.2) ;
 }
+
+// snackbars
+.successSnackBar .mat-simple-snackbar-action span {
+  color: #00ff3a;
+}
+
+.infoSnackBar .mat-simple-snackbar-action span {
+  color: #ffe563;
+}

@@ -27,6 +27,7 @@ import { KazaniDetailComponent } from './components/kazani/kazani-detail/kazani-
 import { ChvalyListComponent } from './components/chvaly/chvaly-list/chvaly-list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {MatListModule} from "@angular/material/list";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {MatListModule} from "@angular/material/list";
     MatButtonModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
