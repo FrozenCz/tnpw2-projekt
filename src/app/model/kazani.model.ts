@@ -1,4 +1,4 @@
-/**
+ /**
  * trida reprezentujici jedno kazani
  */
 export class kazaniModel {
