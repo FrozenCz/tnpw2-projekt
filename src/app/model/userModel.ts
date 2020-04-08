@@ -1,7 +1,7 @@
 /**
  * jedna se o bezneho uzivatele
  */
-export class UzivatelModel{
+export class UserModel{
   private id: number;
   email: string;
   token: string;

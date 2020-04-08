@@ -32,6 +32,7 @@ import {MatCardModule} from "@angular/material/card";
 import {SafeUrlPipe} from './pipes/safe-url.pipe';
 import {YouTubePlayerModule} from '@angular/youtube-player';
 import {YoutubeIdExtractPipe} from './pipes/youtubeIdExtract.pipe';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import {YoutubeIdExtractPipe} from './pipes/youtubeIdExtract.pipe';
     MatListModule,
     MatSnackBarModule,
     MatCardModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

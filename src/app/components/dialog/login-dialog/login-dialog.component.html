@@ -1,4 +1,4 @@
-<div *ngIf="!loggedUser || (loggedUser && dialogOpened); else logoutForm" id="loginForm">
+<div *ngIf="!authService.user || (authService.user && dialogOpened); else logoutForm" id="loginForm">
   <form [formGroup]="loginForm" (ngSubmit)="onLoginClick()">
     <div mat-dialog-content>
       <mat-form-field fxFlexFill>
