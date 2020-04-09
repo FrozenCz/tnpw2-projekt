@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {AuthService} from "../../../services/auth.service";
+import {AuthService} from "../../../shared/auth.service";
 import {LoginDataInterface} from "../../../interfaces/loginDataInterface";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserModel} from "../../../model/userModel";
+import {UserModel} from "../../users/userModel";
 
 
 @Component({

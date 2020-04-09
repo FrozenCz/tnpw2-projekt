@@ -5,9 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
-import { UzivateleComponent } from './components/uzivatele/uzivatele.component';
-import { UzivateleListComponent } from './components/uzivatele/uzivatele-list/uzivatele-list.component';
-import { UzivatelDetailComponent } from './components/uzivatele/uzivatel-detail/uzivatel-detail.component';
+import { UsersComponent } from './components/users/users.component';
+import { UsersListComponent } from './components/users/users-list/users-list.component';
+import { UserDetailComponent } from './components/users/user-detail/user-detail.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { LoginDialogComponent } from './components/dialog/login-dialog/login-dialog.component';
 
@@ -19,7 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { ZalozitUcetComponent } from './components/uzivatele/zalozit-ucet/zalozit-ucet.component';
+import { CreateUserComponent } from './components/users/create-user/create-user.component';
 import { KazaniComponent } from './components/kazani/kazani.component';
 import { ChvalyComponent } from './components/chvaly/chvaly.component';
 import { KazaniListComponent } from './components/kazani/kazani-list/kazani-list.component';
@@ -33,18 +33,21 @@ import {SafeUrlPipe} from './pipes/safe-url.pipe';
 import {YouTubePlayerModule} from '@angular/youtube-player';
 import {YoutubeIdExtractPipe} from './pipes/youtubeIdExtract.pipe';
 import {MatGridListModule} from "@angular/material/grid-list";
+import { ContactComponent } from './components/contact/contact.component';
+import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
+import {getCsPaginatorIntl} from "./util/cs-paginator-intl";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    UzivateleComponent,
-    UzivateleListComponent,
-    UzivatelDetailComponent,
+    UsersComponent,
+    UsersListComponent,
+    UserDetailComponent,
     MainpageComponent,
     LoginDialogComponent,
-    ZalozitUcetComponent,
+    CreateUserComponent,
     KazaniComponent,
     ChvalyComponent,
     KazaniListComponent,
@@ -52,7 +55,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     ChvalyListComponent,
     FooterComponent,
     SafeUrlPipe,
-    YoutubeIdExtractPipe
+    YoutubeIdExtractPipe,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -71,9 +75,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatSnackBarModule,
     MatCardModule,
     YouTubePlayerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatPaginatorModule
   ],
-  providers: [],
+  providers: [{provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

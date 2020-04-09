@@ -3,10 +3,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-zalozit-ucet',
-  templateUrl: './zalozit-ucet.component.html',
-  styleUrls: ['./zalozit-ucet.component.scss']
+  templateUrl: './create-user.component.html',
+  styleUrls: ['./create-user.component.scss']
 })
-export class ZalozitUcetComponent implements OnInit {
+export class CreateUserComponent implements OnInit {
   registraceUzivatele: FormGroup;
 
   constructor() {

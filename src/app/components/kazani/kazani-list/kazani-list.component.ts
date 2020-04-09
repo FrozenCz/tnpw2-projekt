@@ -1,5 +1,5 @@
 import {Component, NgModule, OnInit} from '@angular/core';
-import {KazaniService} from "../../../services/kazani.service";
+import {KazaniService} from "../kazani.service";
 
 @Component({
   selector: 'app-kazani-list',

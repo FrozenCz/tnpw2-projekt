@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {kazaniModel} from "../model/kazani.model";
+import {kazaniModel} from "./kazani.model";
 
 @Injectable({
   providedIn: 'root'
