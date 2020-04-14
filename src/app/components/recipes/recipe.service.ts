@@ -35,10 +35,10 @@ export class RecipeService {
     return this.recipes.find((recipe) => recipe.id === recipeId)
   }
 
-  public addRecipe(name: string, description: string, ingredients: IngredientModel[] | null, isPrivate: boolean): Promise<RecipeModel[]>{
+  public addRecipe(name: string, description: string, ingredients: IngredientModel[] | null, isPrivate: boolean): Promise<boolean>{
     const recipe = new RecipeModel(this.getFakeId(), name, description, ingredients, isPrivate, {id: this.authService.user.id, email: this.authService.user.email}, new Date() );
     //fixme: udelat na server
-    return new Promise<RecipeModel[]>((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
       if(this.recipes.push(recipe)){
         resolve();
       }else{

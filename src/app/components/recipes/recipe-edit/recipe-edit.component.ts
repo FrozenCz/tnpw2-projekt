@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RecipeService} from "../recipe.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-recipe',
@@ -12,7 +14,7 @@ export class RecipeEditComponent implements OnInit {
   id = null;
 
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private matSnackBar: MatSnackBar, private router: Router) {
     this.initForm();
   }
 
@@ -34,7 +36,15 @@ export class RecipeEditComponent implements OnInit {
   onCreateRecipe() {
     this.recipeService.addRecipe(this.newRecipeForm.value.name, this.newRecipeForm.value.description, null, false)
       .then(
-        (result) => console.log(result)
+        () => {
+          this.matSnackBar.open('Recept úspěšně vložen', 'OK', {duration: 2000, panelClass: 'successSnackBar'});
+          this.router.navigate(['/recepty']);
+        }
+      )
+      .catch(
+        () => {
+          alert('chyba');
+        }
       )
   }
 }

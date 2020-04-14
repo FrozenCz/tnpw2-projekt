@@ -24,7 +24,10 @@ const routes: Routes = [
       {path: '', pathMatch: 'full', component: RecipeListComponent},
       {path: 'detail/:id', component: RecipeDetailComponent}
     ]},
-  {path: 'novy-recept', component: RecipeEditComponent},
+  {path: 'moje-recepty', component: RecipesComponent, data: {onlyUser: true}},
+  {path: 'novy-recept', component: RecipeEditComponent, children: [
+      {path: '', pathMatch: 'full', component: RecipeListComponent}
+    ]},
   {path: 'kontakt', component: ContactComponent}
 ];
 
