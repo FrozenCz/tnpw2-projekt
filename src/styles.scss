@@ -15,7 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$candy-app-primary: mat-palette($mat-blue-gray);
+$candy-app-primary: mat-palette($mat-amber);
 $candy-app-accent:  mat-palette($mat-teal);
 
 // The warn palette is optional (defaults to red).
@@ -58,4 +58,19 @@ a.active {
 
 .infoSnackBar .mat-simple-snackbar-action span {
   color: #ffe563;
+}
+
+*[color='primary']{
+  color: white !important;
+}
+
+mat-toolbar.subToolBar{
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+}
+mat-toolbar.subToolBar .webContainer{
+  padding:0px;
 }

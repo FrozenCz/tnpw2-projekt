@@ -20,11 +20,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { CreateUserComponent } from './components/users/create-user/create-user.component';
-import { KazaniComponent } from './components/kazani/kazani.component';
-import { ChvalyComponent } from './components/chvaly/chvaly.component';
-import { KazaniListComponent } from './components/kazani/kazani-list/kazani-list.component';
-import { KazaniDetailComponent } from './components/kazani/kazani-detail/kazani-detail.component';
-import { ChvalyListComponent } from './components/chvaly/chvaly-list/chvaly-list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {MatListModule} from "@angular/material/list";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
@@ -36,6 +31,11 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import { ContactComponent } from './components/contact/contact.component';
 import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {getCsPaginatorIntl} from "./util/cs-paginator-intl";
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { RecipeListComponent } from './components/recipes/recipe-list/recipe-list.component';
+import { RecipeDetailComponent } from './components/recipes/recipe-detail/recipe-detail.component';
+import { RecipeEditComponent } from './components/recipes/recipe-edit/recipe-edit.component';
+import {MatChipsModule} from "@angular/material/chips";
 
 
 @NgModule({
@@ -48,15 +48,14 @@ import {getCsPaginatorIntl} from "./util/cs-paginator-intl";
     MainpageComponent,
     LoginDialogComponent,
     CreateUserComponent,
-    KazaniComponent,
-    ChvalyComponent,
-    KazaniListComponent,
-    KazaniDetailComponent,
-    ChvalyListComponent,
     FooterComponent,
     SafeUrlPipe,
     YoutubeIdExtractPipe,
-    ContactComponent
+    ContactComponent,
+    RecipesComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +75,8 @@ import {getCsPaginatorIntl} from "./util/cs-paginator-intl";
     MatCardModule,
     YouTubePlayerModule,
     MatGridListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule
   ],
   providers: [{provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()}],
   bootstrap: [AppComponent]

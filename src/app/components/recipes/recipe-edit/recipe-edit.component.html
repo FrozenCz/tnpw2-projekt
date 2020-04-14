@@ -1,0 +1,22 @@
+<mat-toolbar color="accent" class="subToolBar">
+  <div class="webContainer">
+    <mat-icon>add_box</mat-icon>
+    <span>Přidání receptu</span>
+  </div>
+</mat-toolbar>
+<form class="webContainer"  [formGroup]="newRecipeForm" (ngSubmit)="onCreateRecipe()" fxLayout="column" fxLayoutAlign="none none">
+  <mat-form-field>
+    <input matInput name="name" formControlName="name" placeholder="Název receptu">
+  </mat-form-field>
+  <div>
+    ingredience
+  </div>
+  <mat-form-field>
+    <textarea matTextareaAutosize matInput name="description" formControlName="description" placeholder="Popis přípravy jídla"></textarea>
+  </mat-form-field>
+  <div fxLayoutAlign="row">
+    <button mat-raised-button color="accent" type="submit" [disabled]="!newRecipeForm.valid">
+      Přidat
+    </button>
+  </div>
+</form>
