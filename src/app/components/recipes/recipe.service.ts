@@ -9,6 +9,7 @@ import {AuthService} from "../../shared/auth.service";
 })
 export class RecipeService {
   private recipes: RecipeModel[] = [];
+  private onlyUser: boolean = false;
   fakeId: number = 10;
 
   constructor(private authService: AuthService) {
@@ -21,14 +22,15 @@ export class RecipeService {
   }
 
   private fakeInit() {
-    this.recipes.push(new RecipeModel( 0, 'nazev receptu', 'popis receptu', null,  false, {id: 0, email: 'test@test.cz'}, new Date()));
+    this.recipes.push(new RecipeModel( 0, 'nazev receptu', 'popis receptu', null,  false, {id: 1, email: 'test@test.cz'}, new Date()));
     this.recipes.push(new RecipeModel( 1, 'nazev receptu 1', 'popis receptu 1',null,   false, {id: 0, email: 'test@test.cz'}, new Date()));
-    this.recipes.push(new RecipeModel( 2, 'nazev receptu 2', 'popis receptu 2',null,   false, {id: 0, email: 'test@test.cz'}, new Date()));
+    this.recipes.push(new RecipeModel( 2, 'nazev receptu 2', 'popis receptu 2',null,   false, {id: 1, email: 'test@test.cz'}, new Date()));
     this.recipes.push(new RecipeModel( 3, 'nazev receptu 3',  'popis receptu 3',  null, false, {id: 0, email: 'test@test.cz'}, new Date()));
   }
 
   public getRecipes(): RecipeModel[]{
-    return this.recipes;
+    if(this.onlyUser == false) return this.recipes;
+    return this.recipes.filter((recipe) => recipe.owner.id === this.authService.user.id);
   }
 
   public getRecipe(recipeId: number): RecipeModel | null {
@@ -47,4 +49,7 @@ export class RecipeService {
     })
   }
 
+  setOnlyUserRecipes(b: boolean) {
+    this.onlyUser = b;
+  }
 }

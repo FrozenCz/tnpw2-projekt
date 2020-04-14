@@ -38,7 +38,7 @@ export class RecipeEditComponent implements OnInit {
       .then(
         () => {
           this.matSnackBar.open('Recept úspěšně vložen', 'OK', {duration: 2000, panelClass: 'successSnackBar'});
-          this.router.navigate(['/recepty']);
+          this.router.navigate(['/moje-recepty']);
         }
       )
       .catch(
