@@ -41,7 +41,8 @@ export class RecipeEditComponent implements OnInit {
       'name': new FormControl(recipeName, [Validators.required]),
       'description': new FormControl(recipeDescrition, [Validators.required]),
       'image' : new FormControl(null),
-      'recipeIngredients' : recipeIngredients
+      'recipeIngredients' : recipeIngredients,
+      'isPrivate' : new FormControl(true)
     })
   }
 

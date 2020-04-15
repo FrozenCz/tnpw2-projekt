@@ -38,6 +38,8 @@ import { RecipeEditComponent } from './components/recipes/recipe-edit/recipe-edi
 import {MatChipsModule} from "@angular/material/chips";
 import {ImageCropperModule} from "ngx-image-cropper";
 import {MatSelectModule} from "@angular/material/select";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -80,7 +82,9 @@ import {MatSelectModule} from "@angular/material/select";
     MatPaginatorModule,
     MatChipsModule,
     ImageCropperModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatTooltipModule
   ],
   providers: [{provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()}],
   bootstrap: [AppComponent]
