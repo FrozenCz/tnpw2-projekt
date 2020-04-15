@@ -1,12 +1,26 @@
+export enum EnumAmountType {
+  g, kg, ml, l,ks
+}
+
 export class IngredientModel {
   private _name: string;
   private _amount: string;
+  private _amount_type: EnumAmountType;
 
-  constructor(name: string, amount: string) {
+  constructor(name: string, amount: string, amountType: EnumAmountType) {
     this._name = name;
     this._amount = amount;
+    this._amount_type = amountType;
   }
 
+
+  get amount_type(): EnumAmountType {
+    return this._amount_type;
+  }
+
+  set amount_type(value: EnumAmountType) {
+    this._amount_type = value;
+  }
 
   get name(): string {
     return this._name;

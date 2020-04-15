@@ -36,6 +36,8 @@ import { RecipeListComponent } from './components/recipes/recipe-list/recipe-lis
 import { RecipeDetailComponent } from './components/recipes/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './components/recipes/recipe-edit/recipe-edit.component';
 import {MatChipsModule} from "@angular/material/chips";
+import {ImageCropperModule} from "ngx-image-cropper";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -76,7 +78,9 @@ import {MatChipsModule} from "@angular/material/chips";
     YouTubePlayerModule,
     MatGridListModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    ImageCropperModule,
+    MatSelectModule
   ],
   providers: [{provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()}],
   bootstrap: [AppComponent]

@@ -16,9 +16,10 @@ export class RecipeModel {
   private _isPrivate: boolean;
   private _owner: ownerInterface;
   private _date: Date;
+  private _imagePath: string;
 
 
-  constructor(id: number, name: string, description: string, ingredients: IngredientModel[], isPrivate: boolean, owner: ownerInterface, date: Date) {
+  constructor(id: number, name: string, description: string, ingredients: IngredientModel[], isPrivate: boolean, owner: ownerInterface, date: Date, imagePath: string) {
     this._id = id;
     this._name = name;
     this._ingredients = ingredients;
@@ -26,6 +27,7 @@ export class RecipeModel {
     this._isPrivate = isPrivate;
     this._owner = owner;
     this._date = date;
+    this._imagePath = imagePath;
   }
 
   get id(): number {
@@ -82,5 +84,14 @@ export class RecipeModel {
 
   set date(value: Date) {
     this._date = value;
+  }
+
+
+  get imagePath(): string {
+    return this._imagePath;
+  }
+
+  set imagePath(value: string) {
+    this._imagePath = value;
   }
 }
