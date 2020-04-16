@@ -4,10 +4,10 @@ export enum EnumAmountType {
 
 export class IngredientModel {
   private _name: string;
-  private _amount: string;
+  private _amount: number;
   private _amount_type: EnumAmountType;
 
-  constructor(name: string, amount: string, amountType: EnumAmountType) {
+  constructor(name: string, amount: number, amountType: EnumAmountType) {
     this._name = name;
     this._amount = amount;
     this._amount_type = amountType;
@@ -30,11 +30,11 @@ export class IngredientModel {
     this._name = value;
   }
 
-  get amount(): string {
+  get amount(): number {
     return this._amount;
   }
 
-  set amount(value: string) {
+  set amount(value: number) {
     this._amount = value;
   }
 }

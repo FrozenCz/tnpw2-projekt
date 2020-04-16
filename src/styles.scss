@@ -93,7 +93,6 @@ app-recipe-list mat-grid-tile:after {
   height: 200%;
   opacity: 0;
   transform: rotate(30deg);
-
   background: rgba(255, 255, 255, 0.13);
   background: linear-gradient(
       to right,
@@ -137,7 +136,7 @@ mat-list-item{
 mat-list-item:before{
   content: '\27A2';
   position: absolute;
-  margin-top:5px;
+  margin-top:8px;
   margin-left:-14px;
   font-size:25px;
   color: mat-color($candy-app-primary);
