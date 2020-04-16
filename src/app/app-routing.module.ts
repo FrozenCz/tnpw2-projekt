@@ -16,16 +16,20 @@ import {RecipeEditComponent} from "./components/recipes/recipe-edit/recipe-edit.
  * @author Milan Knop
  */
 const routes: Routes = [
-  {path: '', pathMatch: 'full', component: MainpageComponent},
+  {path: '', pathMatch: 'full', redirectTo: 'recepty'},
   {path: 'uzivatele', component: UsersComponent, children: [
       {path: 'zalozit-ucet', component: CreateUserComponent}
     ]},
   {path: 'recepty', component: RecipesComponent, children: [
       {path: '', pathMatch: 'full', component: RecipeListComponent},
-      {path: 'detail/:id', component: RecipeDetailComponent}
+      {path: 'detail/:id', component: RecipeDetailComponent},
+      {path: 'detail/:id/edit', component: RecipeEditComponent},
+
     ]},
   {path: 'moje-recepty', component: RecipesComponent, data: {onlyUser: true}, children: [
-      {path: '', pathMatch: 'full', component: RecipeListComponent, data: {onlyUser: true}}
+      {path: '', pathMatch: 'full', component: RecipeListComponent, data: {onlyUser: true}},
+      {path: 'detail/:id', component: RecipeDetailComponent},
+      {path: 'detail/:id/edit', component: RecipeEditComponent},
     ]},
   {path: 'novy-recept', component: RecipeEditComponent, children: [
       {path: '', pathMatch: 'full', component: RecipeListComponent}

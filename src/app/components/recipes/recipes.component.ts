@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from "../../shared/auth.service";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-recipes',
@@ -8,12 +6,9 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./recipes.component.scss']
 })
 export class RecipesComponent implements OnInit {
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
-  isAuthorized(){
-    if(this.authService.user) return this.authService.user.overen;
-    return false;
-  }
+
 
   ngOnInit(): void {
   }

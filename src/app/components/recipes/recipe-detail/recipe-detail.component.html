@@ -1,1 +1,25 @@
-<p>recipe-detail works!</p>
+<div fxLayout="column" class="webContainer" *ngIf="recipe; else nenalezen">
+  <div>
+    <button mat-raised-button routerLink="edit" color="accent" *ngIf="getUser() && recipe.owner.id == getUser().id">Editovat</button>
+  </div>
+<div fxLayout="row" fxLayoutAlign="space-between">
+  <div>
+    <h1>{{ recipe.name }}</h1>
+    <mat-list *ngIf="recipe.ingredients">
+      <h2 style="margin-bottom: 0px;">Ingredience</h2>
+      <mat-list-item *ngFor="let ingredient of recipe.ingredients">
+        {{ingredient.amount + ingredient.amount_type + ' ' + ingredient.name }}
+      </mat-list-item>
+    </mat-list>
+    <h2>Postup přípravy</h2>
+    <p>{{recipe.description}}</p>
+  </div>
+  <div>
+    <img src="{{recipe.imagePath}}">
+  </div>
+</div>
+</div>
+
+<ng-template #nenalezen>
+  Požadovaný recept nenalezen
+</ng-template>

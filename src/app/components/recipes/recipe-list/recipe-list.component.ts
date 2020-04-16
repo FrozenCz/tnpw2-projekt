@@ -9,13 +9,14 @@ import {RecipeModel} from '../recipe.model';
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
+  onlyUser = false;
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
     route.data.subscribe((data) => {
       if(data && data.onlyUser === true){
-        recipeService.setOnlyUserRecipes(true);
+        this.onlyUser = true;
       }else{
-        recipeService.setOnlyUserRecipes(false);
+        this.onlyUser = false;
       }
     })
   }
@@ -25,7 +26,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   public getRecepies(): RecipeModel[] {
-    return this.recipeService.getRecipes();
+    return this.recipeService.getRecipes(this.onlyUser);
   }
 
 }

@@ -1,12 +1,14 @@
-<mat-card *ngFor="let recipe of getRecepies()">
-  <mat-card-title>
-    {{recipe.name}}
-  </mat-card-title>
-  <mat-card-content>
-    {{recipe.description | slice:0:30}}
-  </mat-card-content>
-</mat-card>
+<mat-grid-list cols="4" rowHeight="185" gutterSize="10">
+  <mat-grid-tile style="overflow:hidden;" *ngFor="let recipe of getRecepies()" routerLink="detail/{{recipe.id}}">
+    <mat-grid-tile-header style="overflow: hidden;height: 48px;">
+      {{ (recipe.name.length > 30) ? (recipe.name | slice:0:30)+'..' : (recipe.name) }}
+    </mat-grid-tile-header>
+    <img src="{{recipe.imagePath}}" style="height: 100%;width: 100%;">
+   <mat-grid-tile-footer>
+     hodnocení?
+    </mat-grid-tile-footer>
+  </mat-grid-tile>
+</mat-grid-list>
 
 
-  <button routerLink="detail/16">test detailu</button>
 

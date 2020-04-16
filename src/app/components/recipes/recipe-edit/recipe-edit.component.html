@@ -4,7 +4,7 @@
     <span>Přidání receptu</span>
   </div>
 </mat-toolbar>
-<form class="webContainer" [formGroup]="newRecipeForm" (ngSubmit)="onCreateRecipe()" fxLayout="column"
+<form class="webContainer" [formGroup]="newRecipeForm" (ngSubmit)="onSubmitRecipe()" fxLayout="column"
       fxLayoutAlign="none none">
   <mat-form-field>
     <input matInput name="name" formControlName="name" placeholder="Název receptu">
@@ -13,20 +13,20 @@
     <textarea matTextareaAutosize matInput name="description" formControlName="description"
               placeholder="Popis přípravy jídla"></textarea>
   </mat-form-field>
-  <div formArrayName="recipeIngredients">
+  <div formArrayName="ingredients">
     <mat-card>
       <mat-card-title>
-        Ingredience ({{getControls('recipeIngredients').length}})
+        Ingredience ({{getControls('ingredients').length}})
       </mat-card-title>
-      <div fxLayout="row" fxLayoutGap="10px"
-           *ngFor="let ingredientControl of getControls('recipeIngredients'); let i = index" [formGroupName]="i">
-        <mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="space-between none" fxLayoutGap="10px"
+           *ngFor="let ingredientControl of getControls('ingredients'); let i = index" [formGroupName]="i">
+        <mat-form-field fxFlex>
           <input matInput type="text" formControlName="name" placeholder="název" required>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field fxFlex="10">
           <input matInput type="number" formControlName="amount" placeholder="množství" required>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field fxFlex="10">
           <mat-label>Typ množství</mat-label>
           <mat-select [ngModel]="defaultIngredientType" formControlName="amount_type">
             <mat-option value="{{amountType}}" *ngFor="let amountType of amountTypes()">
@@ -34,7 +34,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-icon-button color="warn" type="button" (click)="removeIngredient(i)">
+        <button fxFlex="10" mat-icon-button color="warn" type="button" (click)="removeIngredient(i)">
           <mat-icon color="warn">
             remove_circle
           </mat-icon>
@@ -56,14 +56,17 @@
   </div>
 
   <input formControlName="image" type="file" (change)="fileChangeEvent($event)" #imageInput [hidden]="true"/>
-  <button mat-raised-button color="warn" type="button" (click)="imageInput.click()" style="width: 130px;">Vybrat
+  <div [hidden]="croppedImage || recipeImage">
+  <button mat-raised-button color="primary" type="button" (click)="imageInput.click()"  style="width: 130px;">Vybrat
     obrázek
   </button>
+  </div>
   <img src="assets/loading.gif" [hidden]="!imageLoading" style="width: 200px; height: 200px; margin: auto;">
   <div [hidden]="imageLoading">
     <div fxLayout="row" [hidden]="imageLoading">
       <img [src]="croppedImage" (click)="imageInput.click()" style="cursor:pointer; height: 300px; width: 400px;"
            [hidden]="!croppedImage"/>
+      <img [src]="recipeImage" (click)="imageInput.click()" style="cursor:pointer; height: 300px; width: 400px;" [hidden]="croppedImage || !recipeImage" matTooltip="Pokud chcete vyměnit obrázek, klikněte na obrázek" matTooltipPosition="after">
       <div [hidden]="!imageIsLoaded">
         <image-cropper
           style="background: transparent; width:600px;height:400px;"
@@ -81,8 +84,8 @@
     </div>
   </div>
   <div fxLayoutAlign="row">
-    <button mat-raised-button color="accent" type="submit" [disabled]="!newRecipeForm.valid">
-      Přidat
+    <button mat-raised-button color="{{ this.recipe ? 'warn' : 'accent' }}" type="submit" [disabled]="!newRecipeForm.valid || getControls('ingredients').length == 0">
+      {{ this.recipe ? 'Upravit recept' : 'Přidat recept' }}
     </button>
   </div>
 </form>

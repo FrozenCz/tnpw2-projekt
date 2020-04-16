@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, HammerModule} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -84,7 +84,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     ImageCropperModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    HammerModule
   ],
   providers: [{provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()}],
   bootstrap: [AppComponent]

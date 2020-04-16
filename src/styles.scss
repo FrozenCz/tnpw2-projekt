@@ -15,7 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$candy-app-primary: mat-palette($mat-amber);
+$candy-app-primary: mat-palette($mat-purple);
 $candy-app-accent:  mat-palette($mat-teal);
 
 // The warn palette is optional (defaults to red).
@@ -73,4 +73,72 @@ mat-toolbar.subToolBar{
 }
 mat-toolbar.subToolBar .webContainer{
   padding:0px;
+}
+app-recipe-list mat-grid-tile{
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+app-recipe-list mat-grid-tile:hover{
+  filter: brightness(1.1);
+}
+
+app-recipe-list mat-grid-tile:after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  opacity: 0;
+  transform: rotate(30deg);
+
+  background: rgba(255, 255, 255, 0.13);
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.13) 0%,
+      rgba(255, 255, 255, 0.13) 77%,
+      rgba(255, 255, 255, 0.5) 92%,
+      rgba(255, 255, 255, 0.0) 100%
+  );
+}
+
+app-recipe-list mat-grid-tile:hover:after {
+  opacity: 1;
+  left: 130%;
+  transition-property: left, top, opacity;
+  transition-duration: 0.7s, 0.7s, 0.15s;
+  transition-timing-function: ease;
+}
+
+app-recipe-list mat-grid-tile:active:after {
+  opacity: 0;
+}
+
+mat-grid-tile-header{
+  background: rgba(mat-color($candy-app-accent), 0.8) !important;
+}
+
+app-recipe-detail img{
+  border: 1px solid mat-color($candy-app-primary);
+  padding:1px;
+  background:white;
+  //box-shadow: 0 20px 50px mat-color($candy-app-primary);
+}
+
+.hide{
+  display:none !important;
+}
+mat-list-item{
+  margin-left:15px;
+  height: 32px !important;
+}
+mat-list-item:before{
+  content: '\27A2';
+  position: absolute;
+  margin-top:5px;
+  margin-left:-14px;
+  font-size:25px;
+  color: mat-color($candy-app-primary);
 }
