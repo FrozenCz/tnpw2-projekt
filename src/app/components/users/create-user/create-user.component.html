@@ -1,11 +1,19 @@
 <div class="webContainer">
   <h1>Tvorba účtu</h1>
-  <form [formGroup]="registraceUzivatele">
+  <form [formGroup]="registraceUzivatele" fxLayout="column" fxLayoutAlign="none none" (ngSubmit)="onSubmit($event)">
     <mat-form-field>
       <mat-label>
-        Přihlašovací jméno
+        Email
       </mat-label>
-      <input matInput formControlName="prihlasovaciJmeno">
+      <input matInput formControlName="email" type="text">
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>
+        Heslo
+      </mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-hint>Minimálně 6 znaků</mat-hint>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!registraceUzivatele.valid">Založit</button>
   </form>
 </div>
