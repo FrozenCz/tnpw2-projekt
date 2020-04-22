@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {RecipeModel} from "./recipe.model";
-import {IngredientModel} from "./ingredient.model";
-import {AuthService} from "../../shared/auth.service";
+import {RecipeModel} from "../../../../shared/recipe.model";
+import {AuthService} from "../dialog/login-dialog/auth.service";
+import {IngredientModel} from "../../../../shared/ingredient.model";
 
 @Injectable({
   providedIn: 'root'

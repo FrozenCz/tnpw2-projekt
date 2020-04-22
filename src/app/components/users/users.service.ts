@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {UserModel} from './userModel';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {UserModel} from "../../../../shared/userModel";
 
 
 @Injectable({

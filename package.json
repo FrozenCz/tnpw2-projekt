@@ -1,5 +1,5 @@
 {
-  "name": "evidencni-system-frontend",
+  "name": "recepty",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

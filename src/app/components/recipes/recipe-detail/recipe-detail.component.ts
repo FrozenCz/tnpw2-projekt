@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {RecipeModel} from "../recipe.model";
 import {RecipeService} from "../recipe.service";
 import {ActivatedRoute} from "@angular/router";
-import {AuthService} from "../../../shared/auth.service";
-import {UserModel} from "../../users/userModel";
+import {RecipeModel} from "../../../../../shared/recipe.model";
+import {AuthService} from "../../dialog/login-dialog/auth.service";
+import {UserModel} from "../../../../../shared/userModel";
 
 @Component({
   selector: 'app-recipe-detail',

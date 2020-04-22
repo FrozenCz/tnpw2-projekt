@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
-import {LoginDataInterface} from "../interfaces/loginDataInterface";
-import {UserModel} from "../components/users/userModel";
+import {UserModel} from "../../../../../shared/userModel";
+
+export interface LoginDataInterface {
+  nickname, password: string
+}
 
 interface userToken {
   email, token: string

@@ -4,8 +4,9 @@ import {RecipeService} from "../recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ImageCroppedEvent} from "ngx-image-cropper";
-import {EnumAmountType} from "../ingredient.model";
-import {RecipeModel} from "../recipe.model";
+import {RecipeModel} from "../../../../../shared/recipe.model";
+import {EnumAmountType} from "../../../../../shared/ingredient.model";
+
 
 
 @Component({
