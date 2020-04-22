@@ -3,7 +3,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService, LoginDataInterface} from "./auth.service";
+import {AuthService, LoginDataInterface} from "../auth.service";
 
 
 

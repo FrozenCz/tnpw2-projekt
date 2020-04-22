@@ -9,7 +9,6 @@ import { UsersComponent } from './components/users/users.component';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
 import { UserDetailComponent } from './components/users/user-detail/user-detail.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
-import { LoginDialogComponent } from './components/dialog/login-dialog/login-dialog.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -40,8 +39,8 @@ import {ImageCropperModule} from "ngx-image-cropper";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {UsersService} from './components/users/users.service';
 import {HttpClientModule} from '@angular/common/http';
+import {AuthModule} from "./modules/auth/auth.module";
 
 
 @NgModule({
@@ -52,7 +51,6 @@ import {HttpClientModule} from '@angular/common/http';
     UsersListComponent,
     UserDetailComponent,
     MainpageComponent,
-    LoginDialogComponent,
     CreateUserComponent,
     FooterComponent,
     SafeUrlPipe,
@@ -89,6 +87,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatTooltipModule,
     HammerModule,
     HttpClientModule,
+    AuthModule.forRoot()
   ],
   providers: [{provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()}],
   bootstrap: [AppComponent]

@@ -7,14 +7,14 @@ export class UsersController{
 
   @Get()
   async getUsers() {
-    const user: UserModel = new UserModel(5, 'test@tesa.sta', 'dasd ad', true);
+    const user: UserModel = new UserModel(5, 'test@tesa.sta');
     return user;
   }
 
   @Post()
   async addUser(@Body() user) {
     console.log("creating user");
-    const userR: UserModel = new UserModel(5, user.email, 'dasd ad', true);
+    const userR: UserModel = new UserModel(5, user.email);
     return userR;
   }
 
