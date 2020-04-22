@@ -13,6 +13,6 @@ export class UsersService{
   }
 
   createUser(email:string, password:string): Observable<UserModel|void> {
-    return this.httpClient.post<UserModel|void>("/api/user", {email, password})
+    return this.httpClient.post<UserModel|void>("/api/users", {email, password})
   }
 }

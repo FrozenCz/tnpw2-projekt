@@ -9,7 +9,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "server": "run-s prebuild start:local",
-    "start:local": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
+    "start:local": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/rest-api/src/main.js\"",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
