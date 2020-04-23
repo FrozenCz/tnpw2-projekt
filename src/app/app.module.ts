@@ -40,7 +40,6 @@ import {ImageCropperModule} from "ngx-image-cropper";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {UsersService} from './components/users/users.service';
 import {HttpClientModule} from '@angular/common/http';
 
 

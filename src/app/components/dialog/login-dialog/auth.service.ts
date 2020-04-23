@@ -1,19 +1,23 @@
 import {Injectable} from '@angular/core';
-import {UserModel} from "../../../../../shared/userModel";
+import {User} from "../../../../../shared/user";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 export interface LoginDataInterface {
-  nickname, password: string
+  email,
+  password: string
 }
 
 interface userToken {
-  email, token: string
+  email,
+  token: string
 }
 
 export interface authLoginMessage {
   msg: string,
   code: number,
   state: boolean,
-  logedUser?: UserModel
+  logedUser?: User
 }
 
 @Injectable({
@@ -21,70 +25,41 @@ export interface authLoginMessage {
 })
 
 export class AuthService {
-  private _user: UserModel;
+  private fakeUser: User; // pomocne
 
-  private fakeUser: UserModel; // pomocne
-
-  constructor() {
-    this.fakeUser = new UserModel(1, 'test@test.cz', 'tadsadaasda', true);
+  constructor(private http: HttpClient) {
+    this.fakeUser = new User(1, 'test@test.cz');
     this.loadUserFromLocalStorage();
   }
 
-  private loadUserFromLocalStorage(): void {
-    const user:userToken = JSON.parse(localStorage.getItem('user'));
-    if(user) this.logInByToken(user);
-  }
+  private _user: User;
 
-  private saveUserToLocalStorage(uzivatel: UserModel): void {
-    localStorage.setItem('user', JSON.stringify({'email': uzivatel.email, 'token': uzivatel.token}));
-  }
-
-  get user(): UserModel {
+  get user(): User {
     return this._user;
   }
 
-  logInByToken(userToken: userToken) {
-    if(userToken.email && userToken.token && userToken.email === this.fakeUser.email && userToken.token === this.fakeUser.token){
-     //TODO: overeni ze serveru
-     this._user = this.fakeUser;
-    }
-  }
-
-  logIn(data: LoginDataInterface): authLoginMessage {
-    let msg: authLoginMessage;
-    //TODO: dodelat prihlaseni pres server
-    if (data.nickname == 'test' && data.password == '123') {
-      this._user = this.fakeUser;
-      this.saveUserToLocalStorage(this.fakeUser);
-      msg = {
-        msg: 'Uživatel úspěšně přihlášen',
-        code: 200,
-        state: true,
-        logedUser: this.fakeUser
-      }
-    } else {
-      if (data.nickname === 'test') {
-        msg = {
-          msg: 'Špatné heslo',
-          code: 403,
-          state: false,
+  logIn(data: LoginDataInterface) {
+    this.http.post('/api/users', {email: data.email, password: data.password}).toPromise()
+      .then(
+        (result) => {
+          console.log(result, "toto");
         }
-      } else {
-        msg = {
-          msg: 'Uživatel neexistuje',
-          code: 404,
-          state: false,
-        }
+      ).catch(
+      (err) => {
+        console.log(err, "catch");
       }
-
-    }
-    return msg;
+    )
   }
 
   logoutUser(): authLoginMessage {
     //TODO: uedlat odhlaseni na serveru ?
     localStorage.removeItem('user');
     this._user = null;
-    return {msg: 'Uživatel byl úspěšně odhlášen', code: 200, state:true};
+    return {msg: 'Uživatel byl úspěšně odhlášen', code: 200, state: true};
+  }
+
+  private loadUserFromLocalStorage(): void {
+    const user: userToken = JSON.parse(localStorage.getItem('user'));
+
   }
 }

@@ -6,7 +6,7 @@
           <mat-icon>person</mat-icon>
           Přihlašovací jméno
         </mat-label>
-        <input matInput formControlName="login" [(ngModel)]="data.nickname">
+        <input matInput formControlName="login" [(ngModel)]="data.email">
         <mat-error *ngIf="loginNotFound">Uživatel nenalezen</mat-error>
       </mat-form-field>
       <mat-form-field fxFlexFill>

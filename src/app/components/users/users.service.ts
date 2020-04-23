@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UserModel} from "../../../../shared/userModel";
+import {User} from "../../../../shared/user";
 
 
 @Injectable({
@@ -12,7 +12,10 @@ export class UsersService{
   constructor(private httpClient: HttpClient) {
   }
 
-  createUser(email:string, password:string): Observable<UserModel|void> {
-    return this.httpClient.post<UserModel|void>("/api/users", {email, password})
+  createUser(email:string, password:string): Observable<User|void> {
+    return this.httpClient.post<User|void>("/api/users", {email, password})
   }
+
+
+
 }

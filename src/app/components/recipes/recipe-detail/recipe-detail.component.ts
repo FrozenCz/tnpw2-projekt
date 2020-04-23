@@ -3,7 +3,7 @@ import {RecipeService} from "../recipe.service";
 import {ActivatedRoute} from "@angular/router";
 import {RecipeModel} from "../../../../../shared/recipe.model";
 import {AuthService} from "../../dialog/login-dialog/auth.service";
-import {UserModel} from "../../../../../shared/userModel";
+import {User} from "../../../../../shared/user";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -21,7 +21,7 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getUser(): UserModel {
+  getUser(): User {
     return this.authService.user;
   }
 

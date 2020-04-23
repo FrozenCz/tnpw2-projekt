@@ -18,7 +18,7 @@ export class LoginDialogComponent implements OnInit {
   dialogOpened: boolean = true;
 
   @Input() loginForm: FormGroup;
-  public data: LoginDataInterface = {nickname: '', password: ''};
+  public data: LoginDataInterface = {email: '', password: ''};
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>, public authService: AuthService, private snackBar: MatSnackBar) {
     this.loginForm = new FormGroup({
