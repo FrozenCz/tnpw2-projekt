@@ -28,7 +28,6 @@ export class AuthService {
   private fakeUser: User; // pomocne
 
   constructor(private http: HttpClient) {
-    this.fakeUser = new User(1, 'test@test.cz');
     this.loadUserFromLocalStorage();
   }
 

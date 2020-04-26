@@ -1,29 +1,28 @@
-import {IsMongoId, IsString} from "class-validator";
+import {IsEmail, IsMongoId, IsString} from "class-validator";
 
 /**
  * jedna se o bezneho uzivatele
  */
 
-export class User{
+export class User {
   @IsString()
   @IsMongoId()
-  private _id: number;
-  private _email: string;
+  _id: string;
+  @IsString()
+  @IsEmail()
+  email: string;
+  @IsString()
+  passwordHash: string;
+
+  tokens: string[];
 
 
-
-  constructor(id: number, email: string) {
+  constructor(id: string, email: string, passwordHash: string, tokens: string[]) {
     this._id = id;
-    this._email = email;
+    this.email = email;
+    this.passwordHash = passwordHash;
+    this.tokens = tokens;
   }
 
-
-  get id(): number {
-    return this._id;
-  }
-
-  get email(): string {
-    return this._email;
-  }
 
 }

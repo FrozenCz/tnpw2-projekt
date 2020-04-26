@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../users.service';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-zalozit-ucet',
@@ -26,6 +27,9 @@ export class CreateUserComponent implements OnInit {
       .then(
         result => {
           console.log(result);
+        },
+        error => {
+          console.log(error);
         }
       )
 

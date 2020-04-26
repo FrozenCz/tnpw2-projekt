@@ -37,24 +37,24 @@ export class LoginDialogComponent implements OnInit {
 
 
   onLoginClick(): void {
-    const request = this.authService.logIn(this.data);
-    if (request.state === true && request.code === 200) {
-      this.dialogRef.close();
-      this.dialogRef.afterClosed().toPromise()
-          .then(() => {
-          this.snackBar.open(request.msg, 'Přihlášen', {
-            panelClass: 'successSnackBar',
-            duration: 2000
-          })
-        })
-    } else if (request.code === 403) {
-      this.badPassword = true;
-      this.loginForm.controls['password'].setErrors({'badPassword': true})
-    } else if (request.code === 404) {
-      this.loginNotFound = true;
-      this.loginForm.controls['login'].setErrors({'loginNotFound': true})
-    }
-    console.log(request);
+  //   const request = this.authService.logIn(this.data);
+  //   if (request.state === true && request.code === 200) {
+  //     this.dialogRef.close();
+  //     this.dialogRef.afterClosed().toPromise()
+  //         .then(() => {
+  //         this.snackBar.open(request.msg, 'Přihlášen', {
+  //           panelClass: 'successSnackBar',
+  //           duration: 2000
+  //         })
+  //       })
+  //   } else if (request.code === 403) {
+  //     this.badPassword = true;
+  //     this.loginForm.controls['password'].setErrors({'badPassword': true})
+  //   } else if (request.code === 404) {
+  //     this.loginNotFound = true;
+  //     this.loginForm.controls['login'].setErrors({'loginNotFound': true})
+  //   }
+  //   console.log(request);
   }
 
 

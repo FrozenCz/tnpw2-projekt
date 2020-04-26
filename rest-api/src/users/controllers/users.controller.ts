@@ -1,9 +1,19 @@
-import {BadRequestException, Body, ConflictException, Controller, Get, Post} from "@nestjs/common";
+import {
+  BadRequestException,
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  Post,
+  RequestTimeoutException
+} from "@nestjs/common";
 import {User} from "../../../../shared/user";
-import * as mongoose from 'mongoose';
-import * as password from 'password-hash-and-salt';
-import {catchError} from "rxjs/operators";
 import {UsersRepository} from "../repositories/users.repository";
+import {InjectModel} from '@nestjs/mongoose';
+import {Model} from 'mongoose';
+import * as password from 'password-hash-and-salt';
+import * as jwt from 'jsonwebtoken';
+import {JWT_SECRET} from '../../constants';
 
 interface UserToCreate {
   email,
@@ -12,45 +22,36 @@ interface UserToCreate {
 
 @Controller("users")
 export class UsersController {
-  constructor(private usersDB: UsersRepository) {
+  constructor(@InjectModel('User') private userModel: Model, private usersDB: UsersRepository) {
   }
 
   @Get()
   async getUsers(): Promise<User[]> {
-    return this.usersDB.findAll();
+    return this.userModel.find();
   }
 
   @Post()
-  async createUser(@Body() user: UserToCreate) {
-    return new Promise((resolve, reject) => {
-        this.checkIfUserExist(user.email).then(
-          (exist) => {
-            if (exist) {
-              reject(new ConflictException("Uživatel s tímto emailem existuje"));
-              return;
-            }
-
-            this.createHashPassword(user.password).then(
-              (passHash: string) => {
-                console.log("creating user");
-                this.usersDB.addUser(user.email, passHash).then(
-                  (uzivatel) => {
-                    resolve("coto");
-                  }
-                )
-              }
-            )
-          }
-        ).catch(
-          (err) => {
-            reject(new Error(err));
-          }
-        )
-      }
-    )
+  async createUser(@Body() user: UserToCreate): Promise<any> {
+    if (await this.userModel.findOne({email: user.email}))
+      throw new ConflictException('Uzivatel existuje');
+    let newUser = await this.usersDB.addUser(user.email, await this.createHashPassword(user.password))
+    if (newUser) {
+      const authToken = await this.createToken(newUser);
+      return {token: authToken};
+    }
   }
 
-  private createHashPassword(passwordPlainText: string): Promise<string>{
+  private async createToken(user: User): Promise<string> {
+    const authJwtToken = jwt.sign({email: user.email}, JWT_SECRET);
+    let tokens = user.tokens;
+    tokens.push(authJwtToken);
+    if (await this.usersDB.updateUser(user._id, {tokens: tokens})) {
+      return authJwtToken;
+    }
+  }
+
+
+  private async createHashPassword(passwordPlainText: string): Promise<string> {
     return new Promise((resolve, reject) => {
       password(passwordPlainText).hash(
         (err, hash) => {
@@ -63,18 +64,4 @@ export class UsersController {
     })
   }
 
-  private checkIfUserExist(email: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-        this.getUsers().then(
-          users => {
-            resolve(users.some(u => u.email === email))
-          }
-        ).catch(
-          err => {
-            reject(err);
-          }
-        )
-      }
-    )
-  }
 }

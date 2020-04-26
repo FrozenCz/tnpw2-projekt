@@ -10,20 +10,21 @@ export class UsersRepository {
 
   }
 
-  async findAll(): Promise<User[]>{
+  async findAll(): Promise<User[]> {
     return this.userModel.find();
   }
 
-  async findUser(userId: string): Promise<User>{
+  async findUser(userId: string): Promise<User> {
     return this.userModel.findById(userId);
   }
 
-  async addUser(email: string, password: string): Promise<User>{
+  async addUser(email: string, password: string): Promise<User> {
     const newUser = this.userModel({email, passwordHash: password})
     await newUser.save();
-    // this.userModel.create({email, passwordHash: password})
-
-    return newUser.toObject({versionKey:false})
+    return newUser.toObject({versionKey: false})
   }
 
+  async updateUser(userId: string, changes: Partial<User>): Promise<User> {
+    return this.userModel.findOneAndUpdate({_id: userId}, changes, {new: true});
+  }
 }
