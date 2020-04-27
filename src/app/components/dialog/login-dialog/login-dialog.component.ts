@@ -39,9 +39,13 @@ export class LoginDialogComponent implements OnInit {
   onLogin(): void {
     this.authService.logIn(this.data.email, this.data.password).subscribe(
       (reply: any) => {
-        console.log(reply);
-        // localStorage.setItem("authJwtToken", reply.token);
-        // this.authService.setLoginMode(true);
+        this.dialogRef.close();
+        localStorage.setItem("authJwtToken", reply.token);
+        this.authService.setLoginMode(true);
+        this.snackBar.open('Uživatel úspěšně přihlášen', 'Přihlášen', {
+          duration: 2000,
+          panelClass: 'successSnackBar',
+        });
       }, err => {
         console.log('login failed', err);
       }

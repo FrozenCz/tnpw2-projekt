@@ -20,7 +20,7 @@ export class UsersRepository{
   }
 
   async findOne(params): Promise<User>{
-    return this.userModel.findOne(params).toObject();
+    return this.userModel.findOne(params);
   }
 
   async findUser(userId: string): Promise<User> {
