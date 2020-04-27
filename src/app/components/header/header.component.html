@@ -3,11 +3,11 @@
     <div>
 <!--      <a mat-button [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>-->
       <a mat-button [routerLink]="'/recepty'" routerLinkActive="active">Recepty</a>
-      <a mat-button *ngIf="getUser()" [routerLink]="'/moje-recepty'" routerLinkActive="active">Moje recepty</a>
+      <a mat-button *ngIf="isLogged()" [routerLink]="'/moje-recepty'" routerLinkActive="active">Moje recepty</a>
     </div>
     <span fxFlex></span>
     <div>
-      <button mat-raised-button color="accent" routerLink="/novy-recept" *ngIf="getUser()" routerLinkActive="hide">Přidat recept</button>
+      <button mat-raised-button color="accent" routerLink="/novy-recept" *ngIf="isLogged()" routerLinkActive="hide">Přidat recept</button>
       <a mat-button [routerLink]="'/kontakt'" routerLinkActive="active">Kontakt</a>
       <button mat-icon-button (click)="openLogin()">
         <mat-icon>account_circle</mat-icon>

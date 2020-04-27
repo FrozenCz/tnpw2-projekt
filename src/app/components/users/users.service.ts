@@ -8,13 +8,21 @@ import {User} from "../../../../shared/user";
   providedIn: 'root'
 })
 export class UsersService{
+  private user: User;
 
   constructor(private httpClient: HttpClient) {
+    const token = localStorage.getItem('authJwtToken');
+    if(token) {
+
+    }
+
   }
 
-  createUser(email:string, password:string): Observable<User|void> {
-    return this.httpClient.post<User|void>("/api/users", {email, password})
+  createUser(email:string, password:string): Observable<{token: string}> {
+    return this.httpClient.post<{ token: string }>("/api/users", {email, password})
   }
+
+
 
 
 

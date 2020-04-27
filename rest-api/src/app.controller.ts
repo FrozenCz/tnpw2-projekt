@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import {Controller, Get, Post} from '@nestjs/common';
 import { AppService } from './app.service';
+import {UsersRepository} from "./users/repositories/users.repository";
 
 @Controller()
 export class AppController {
@@ -10,3 +11,5 @@ export class AppController {
     return this.appService.getHello();
   }
 }
+
+

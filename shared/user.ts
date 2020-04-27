@@ -13,15 +13,14 @@ export class User {
   email: string;
   @IsString()
   passwordHash: string;
+  token: string;
 
-  tokens: string[];
 
-
-  constructor(id: string, email: string, passwordHash: string, tokens: string[]) {
+  constructor(id: string, email: string, passwordHash: string, token: string) {
     this._id = id;
     this.email = email;
     this.passwordHash = passwordHash;
-    this.tokens = tokens;
+    this.token = token;
   }
 
 

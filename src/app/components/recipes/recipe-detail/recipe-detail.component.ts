@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RecipeService} from "../recipe.service";
 import {ActivatedRoute} from "@angular/router";
 import {RecipeModel} from "../../../../../shared/recipe.model";
-import {AuthService} from "../../dialog/login-dialog/auth.service";
+import {AuthService} from "../../../auth.service";
 import {User} from "../../../../../shared/user";
 
 @Component({
@@ -21,8 +21,11 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getUser(): User {
-    return this.authService.user;
+  isLogged() {
+    return this.authService.isLogged;
   }
 
+  userId(): string {
+      return 'test';
+  }
 }

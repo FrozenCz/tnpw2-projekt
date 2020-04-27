@@ -1,6 +1,6 @@
 <div fxLayout="column" class="webContainer" *ngIf="recipe; else nenalezen">
   <div>
-    <button mat-raised-button routerLink="edit" color="accent" *ngIf="getUser() && recipe.owner.id == getUser().id">Editovat</button>
+    <button mat-raised-button routerLink="edit" color="accent" *ngIf="isLogged() && recipe.owner == userId()">Editovat</button>
   </div>
 <div fxLayout="row" fxLayoutAlign="space-between">
   <div>

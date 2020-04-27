@@ -1,11 +1,10 @@
 import {
-  BadRequestException,
   Body,
   ConflictException,
   Controller,
   Get,
   Post,
-  RequestTimeoutException
+  UnauthorizedException
 } from "@nestjs/common";
 import {User} from "../../../../shared/user";
 import {UsersRepository} from "../repositories/users.repository";
@@ -14,11 +13,8 @@ import {Model} from 'mongoose';
 import * as password from 'password-hash-and-salt';
 import * as jwt from 'jsonwebtoken';
 import {JWT_SECRET} from '../../constants';
+import {rejects} from "assert";
 
-interface UserToCreate {
-  email,
-  password: string
-}
 
 @Controller("users")
 export class UsersController {
@@ -27,14 +23,44 @@ export class UsersController {
 
   @Get()
   async getUsers(): Promise<User[]> {
-    return this.userModel.find();
+    return this.usersDB.findAll()
+  }
+
+  @Post("login")
+  async loginUser(@Body("email") email: string, @Body("password") plainTextPassword: string){
+    const user = await this.usersDB.findOne({email: email})
+
+    if(!user)
+      return new UnauthorizedException('Uzivatel s timto emailem neexistuje');
+
+    console.log(user);
+
+    return new Promise((resolve, reject) => {
+      password(plainTextPassword).verifyAgainst(
+        user.passwordHash,
+        (err, verified) => {
+
+          if(!verified){
+            reject(new UnauthorizedException('nesouhlasiHeslo'));
+          }
+
+          const authJwtToken = this.createToken(user);
+          resolve({token: authJwtToken})
+
+        }
+      )
+    })
   }
 
   @Post()
-  async createUser(@Body() user: UserToCreate): Promise<any> {
-    if (await this.userModel.findOne({email: user.email}))
+  async createUser(@Body() user: {email: string, password: string}): Promise<any> {
+    console.log(user);
+    if (await this.usersDB.emailExists(user.email))
       throw new ConflictException('Uzivatel existuje');
-    let newUser = await this.usersDB.addUser(user.email, await this.createHashPassword(user.password))
+
+    let pass = await this.createHashPassword(user.password)
+
+    let newUser = await this.usersDB.addUser(user.email, pass);
     if (newUser) {
       const authToken = await this.createToken(newUser);
       return {token: authToken};
@@ -43,9 +69,7 @@ export class UsersController {
 
   private async createToken(user: User): Promise<string> {
     const authJwtToken = jwt.sign({email: user.email}, JWT_SECRET);
-    let tokens = user.tokens;
-    tokens.push(authJwtToken);
-    if (await this.usersDB.updateUser(user._id, {tokens: tokens})) {
+    if (await this.usersDB.updateUser(user._id, {token: authJwtToken})) {
       return authJwtToken;
     }
   }

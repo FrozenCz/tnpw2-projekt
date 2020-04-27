@@ -4,14 +4,23 @@ import { Model } from 'mongoose';
 import {InjectModel} from "@nestjs/mongoose";
 
 @Injectable()
-export class UsersRepository {
+export class UsersRepository{
 
   constructor(@InjectModel('User') private userModel: Model<User>) {
 
   }
 
+
   async findAll(): Promise<User[]> {
     return this.userModel.find();
+  }
+
+  async emailExists(email: string){
+    return this.userModel.findOne({email});
+  }
+
+  async findOne(params): Promise<User>{
+    return this.userModel.findOne(params).toObject();
   }
 
   async findUser(userId: string): Promise<User> {

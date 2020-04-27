@@ -1,9 +1,5 @@
 import {IngredientModel} from "./ingredient.model";
 
-interface ownerInterface {
-  id: number, email: string
-}
-
 /**
  * trida reprezentujici recept
  * @author Milan Knop
@@ -14,12 +10,12 @@ export class RecipeModel {
   private _ingredients?: IngredientModel[];
   private _description: string;
   private _isPrivate: boolean;
-  private _owner: ownerInterface;
+  private _owner: string;
   private _date: Date;
   private _imagePath: string;
 
 
-  constructor(id: number, name: string, description: string, ingredients: IngredientModel[], isPrivate: boolean, owner: ownerInterface, date: Date, imagePath: string) {
+  constructor(id: number, name: string, description: string, ingredients: IngredientModel[], isPrivate: boolean, owner: string, date: Date, imagePath: string) {
     this._id = id;
     this._name = name;
     this._ingredients = ingredients;
@@ -70,11 +66,11 @@ export class RecipeModel {
     this._isPrivate = value;
   }
 
-  get owner(): ownerInterface {
+  get owner(): string {
     return this._owner;
   }
 
-  set owner(value: ownerInterface) {
+  set owner(value: string) {
     this._owner = value;
   }
 
