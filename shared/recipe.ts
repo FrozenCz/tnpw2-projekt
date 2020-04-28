@@ -1,17 +1,28 @@
 import {IngredientModel} from "./ingredient.model";
+import {IsArray, IsBoolean, IsDate, IsMongoId, IsString} from 'class-validator';
 
 /**
  * trida reprezentujici recept
  * @author Milan Knop
  */
-export class RecipeModel {
+export class Recipe {
+  @IsString()
+  @IsMongoId()
   private _id: number;
+  @IsString()
   private _name: string;
+  @IsArray()
   private _ingredients?: IngredientModel[];
+  @IsString()
   private _description: string;
+  @IsBoolean()
   private _isPrivate: boolean;
+  @IsString()
+  @IsMongoId()
   private _owner: string;
+  @IsDate()
   private _date: Date;
+  @IsString()
   private _imagePath: string;
 
 

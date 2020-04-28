@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RecipeService} from "../recipe.service";
 import {ActivatedRoute} from "@angular/router";
-import {RecipeModel} from "../../../../../shared/recipe.model";
+import {Recipe} from "../../../../../shared/recipe";
 import {AuthService} from "../../../auth.service";
 import {User} from "../../../../../shared/user";
 
@@ -11,7 +11,7 @@ import {User} from "../../../../../shared/user";
   styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent implements OnInit {
-  recipe: RecipeModel;
+  recipe: Recipe;
 
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute, private authService: AuthService) {

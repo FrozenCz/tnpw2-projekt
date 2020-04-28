@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import {RecipeModel} from "../../../../shared/recipe.model";
+import {Recipe} from "../../../../shared/recipe";
 import {AuthService} from "../../auth.service";
 import {IngredientModel} from "../../../../shared/ingredient.model";
 import {UsersService} from "../users/users.service";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-  private recipes: RecipeModel[] = [];
+  private recipes: Recipe[] = [];
   private onlyUser: boolean = false;
   fakeId: number = 10;
 
-  constructor(private userService: UsersService) {
+  constructor(private userService: UsersService, private http:HttpClient) {
     this.fakeInit();
   }
 
@@ -22,7 +24,7 @@ export class RecipeService {
   }
 
   private fakeInit() {
-    this.recipes.push(new RecipeModel( 0, 'Zapékané brambory', 'Brambory uvaříme ve slupce, oloupeme a nakrájíme na plátky. Šest vajec uvaříme natvrdo, sloupneme a nakrájíme také na plátky Cibuli oloupeme, nakrájíme najemno a zpěníme na másle. Nivu nastrouháme na hrubém struhadle. Fazole necháme okapat. Česnek oloupeme a prolisujeme.\n' +
+    this.recipes.push(new Recipe( 0, 'Zapékané brambory', 'Brambory uvaříme ve slupce, oloupeme a nakrájíme na plátky. Šest vajec uvaříme natvrdo, sloupneme a nakrájíme také na plátky Cibuli oloupeme, nakrájíme najemno a zpěníme na másle. Nivu nastrouháme na hrubém struhadle. Fazole necháme okapat. Česnek oloupeme a prolisujeme.\n' +
       '\n' +
       'Připravíme si zálivku. V misce promícháme jogurt se zakysanou smetanou a syrovým vejcem. Vmícháme česnek, červenou mletou papriku a strouhaný parmazán.\n' +
       '\n' +
@@ -31,12 +33,12 @@ export class RecipeService {
       'Zapékané brambory s vejci můžeme podávat jako přílohu k pečené drůbeži, ale i jako samostatný pokrm se zeleninovými saláty.\n' +
       '\n' +
       'a', [new IngredientModel('Brambory', 250, 0), new IngredientModel('Vepřová panenka', 500, 0), new IngredientModel('Máslo', 125, 0)],  false, '', new Date(), 'https://data.labuznik.cz/labuznik/images/400x300/18137.jpg?1'));
-    this.recipes.push(new RecipeModel( 1, 'nazev receptu 1', 'popis receptu 1',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
-    this.recipes.push(new RecipeModel( 2, 'nazev receptu 2', 'popis receptu 2',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
-    this.recipes.push(new RecipeModel( 3, 'nazev receptu 3',  'popis receptu 3',  null, false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
+    this.recipes.push(new Recipe( 1, 'nazev receptu 1', 'popis receptu 1',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
+    this.recipes.push(new Recipe( 2, 'nazev receptu 2', 'popis receptu 2',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
+    this.recipes.push(new Recipe( 3, 'nazev receptu 3',  'popis receptu 3',  null, false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
   }
 
-  public getRecipes(onlyUser?: boolean): RecipeModel[]{
+  public getRecipes(onlyUser?: boolean): Recipe[]{
     //todo: pokud onlyUser, tak z backendu ber jen uzivatele, jinak ber vse
     // bude se to lišit i v vlastnosti isPrivate, pokud jen uzivatele, tak se zobrazi veskere, jinak se zobrazi jen ty co nejsou private!
     if(!onlyUser) return this.recipes;
@@ -45,23 +47,15 @@ export class RecipeService {
 
 
 
-  public getRecipe(recipeId: number): RecipeModel | null {
+  public getRecipe(recipeId: number): Recipe | null {
     return this.recipes.find((recipe) => recipe.id === recipeId)
   }
 
-  public addRecipe(name: string, description: string, ingredients: IngredientModel[] | null, isPrivate: boolean, image: any): Promise<boolean>{
-    const recipe = new RecipeModel(this.getFakeId(), name, description, ingredients, isPrivate, 'asdasd', new Date(), null);
-    //fixme: udelat na server a hlavně nezapomenout na obrazek
-    return new Promise<boolean>((resolve, reject) => {
-      if(this.recipes.push(recipe)){
-        resolve();
-      }else{
-        reject();
-      }
-    })
+  public addRecipe(recipe: Partial<Recipe>): Observable<any>{
+    return this.http.post('recipe', {recipe})
   }
 
-  public updateRecipe(updatedRecipe: RecipeModel, name: string, description: string, ingredients: IngredientModel[] | null, isPrivate: boolean, image: any | null) {
+  public updateRecipe(updatedRecipe: Recipe, name: string, description: string, ingredients: IngredientModel[] | null, isPrivate: boolean, image: any | null) {
     updatedRecipe.name = name;
     updatedRecipe.isPrivate = isPrivate;
     updatedRecipe.description = description;

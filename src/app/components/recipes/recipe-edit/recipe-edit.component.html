@@ -6,9 +6,19 @@
 </mat-toolbar>
 <form class="webContainer" [formGroup]="newRecipeForm" (ngSubmit)="onSubmitRecipe()" fxLayout="column"
       fxLayoutAlign="none none">
-  <mat-form-field>
-    <input matInput name="name" formControlName="name" placeholder="Název receptu">
-  </mat-form-field>
+  <div fxLayout="row">
+    <div fxLayout="column" fxFlex="50">
+    <mat-form-field>
+      <input matInput name="name" formControlName="name" placeholder="Název receptu">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Obrázek (url)</mat-label>
+      <input matInput  name="imagePath" formControlName="imagePath"  >
+    </mat-form-field>
+    </div>
+
+    <img src="{{newRecipeForm.controls.imagePath.value}}" *ngIf="newRecipeForm.controls.imagePath.value" style="height: 100px;margin-left:20px;">
+  </div>
   <mat-form-field>
     <textarea matTextareaAutosize matInput name="description" formControlName="description"
               placeholder="Popis přípravy jídla"></textarea>
@@ -55,34 +65,7 @@
   </mat-slide-toggle>
   </div>
 
-  <input formControlName="image" type="file" (change)="fileChangeEvent($event)" #imageInput [hidden]="true"/>
-  <div [hidden]="croppedImage || recipeImage">
-  <button mat-raised-button color="primary" type="button" (click)="imageInput.click()"  style="width: 130px;">Vybrat
-    obrázek
-  </button>
-  </div>
-  <img src="assets/loading.gif" [hidden]="!imageLoading" style="width: 200px; height: 200px; margin: auto;">
-  <div [hidden]="imageLoading">
-    <div fxLayout="row" [hidden]="imageLoading">
-      <img [src]="croppedImage" (click)="imageInput.click()" style="cursor:pointer; height: 300px; width: 400px;"
-           [hidden]="!croppedImage"/>
-      <img [src]="recipeImage" (click)="imageInput.click()" style="cursor:pointer; height: 300px; width: 400px;" [hidden]="croppedImage || !recipeImage" matTooltip="Pokud chcete vyměnit obrázek, klikněte na obrázek" matTooltipPosition="after">
-      <div [hidden]="!imageIsLoaded">
-        <image-cropper
-          style="background: transparent; width:600px;height:400px;"
-          [imageChangedEvent]="imageChangedEvent"
-          [maintainAspectRatio]="true"
-          [aspectRatio]="4 / 3"
-          format="png"
-          (imageCropped)="imageCropped($event)"
-          (imageLoaded)="imageLoaded()"
-          (cropperReady)="cropperReady()"
-          (loadImageFailed)="loadImageFailed()"
-        ></image-cropper>
-        <button mat-raised-button color="accent" type="button" (click)="closeCropper()">Oříznout</button>
-      </div>
-    </div>
-  </div>
+
   <div fxLayoutAlign="row">
     <button mat-raised-button color="{{ this.recipe ? 'warn' : 'accent' }}" type="submit" [disabled]="!newRecipeForm.valid || getControls('ingredients').length == 0">
       {{ this.recipe ? 'Upravit recept' : 'Přidat recept' }}

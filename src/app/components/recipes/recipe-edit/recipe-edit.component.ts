@@ -4,7 +4,7 @@ import {RecipeService} from "../recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ImageCroppedEvent} from "ngx-image-cropper";
-import {RecipeModel} from "../../../../../shared/recipe.model";
+import {Recipe} from "../../../../../shared/recipe";
 import {EnumAmountType} from "../../../../../shared/ingredient.model";
 
 
@@ -23,7 +23,9 @@ export class RecipeEditComponent implements OnInit {
   imageIsLoaded: boolean = false;
   imageLoading: boolean = false;
   defaultIngredientType: string = 'g';
-  recipe: RecipeModel;
+  recipe: Recipe;
+  imageUrl: any;
+
 
   constructor(private recipeService: RecipeService, private matSnackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) {
     this.id = route.snapshot.params.id ? +route.snapshot.params.id : null;
@@ -64,7 +66,7 @@ export class RecipeEditComponent implements OnInit {
     this.newRecipeForm = new FormGroup({
       'name': new FormControl(recipeName, [Validators.required]),
       'description': new FormControl(recipeDescrition, [Validators.required]),
-      'image': new FormControl(null),
+      'imagePath': new FormControl(null),
       ingredients,
       'isPrivate': new FormControl(isPrivate)
     })
@@ -131,8 +133,13 @@ export class RecipeEditComponent implements OnInit {
   }
 
   private createRecipe() {
-    this.recipeService.addRecipe(this.newRecipeForm.value.name, this.newRecipeForm.value.description, this.newRecipeForm.value.ingredients, this.newRecipeForm.value.isPrivate, this.croppedImage)
-      .then(
+    this.recipeService.addRecipe({
+      name: this.newRecipeForm.value.name,
+      description: this.newRecipeForm.value.description,
+      ingredients: this.newRecipeForm.value.ingredients,
+      isPrivate: this.newRecipeForm.value.isPrivate,
+      imagePath: this.newRecipeForm.value.imagePath
+    }).toPromise().then(
         () => {
           this.matSnackBar.open('Recept úspěšně vložen', 'OK', {duration: 2000, panelClass: 'successSnackBar'});
           this.router.navigate(['/moje-recepty']);
@@ -145,7 +152,7 @@ export class RecipeEditComponent implements OnInit {
       )
   }
 
-  private updateRecipe(recipe: RecipeModel) {
+  private updateRecipe(recipe: Recipe) {
     this.recipeService.updateRecipe(
       this.recipe, this.newRecipeForm.value.name, this.newRecipeForm.value.description,
       this.newRecipeForm.value.ingredients, this.newRecipeForm.value.isPrivate, this.croppedImage)

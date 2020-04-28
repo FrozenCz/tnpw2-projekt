@@ -40,7 +40,8 @@ import {ImageCropperModule} from "ngx-image-cropper";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptor} from './auth.interceptor';
 
 
 @NgModule({
@@ -89,7 +90,14 @@ import {HttpClientModule} from '@angular/common/http';
     HammerModule,
     HttpClientModule,
   ],
-  providers: [{provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()}],
+  providers: [
+    {provide: MatPaginatorIntl, useValue: getCsPaginatorIntl()},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
