@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Recipe} from "../../../../shared/recipe";
-import {AuthService} from "../../auth.service";
 import {IngredientModel} from "../../../../shared/ingredient.model";
 import {UsersService} from "../users/users.service";
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +12,13 @@ import {Observable} from 'rxjs';
 export class RecipeService {
   private recipes: Recipe[] = [];
   private onlyUser: boolean = false;
-  fakeId: number = 10;
 
   constructor(private userService: UsersService, private http:HttpClient) {
-    this.fakeInit();
-  }
-
-  private getFakeId(): number {
-    this.fakeId++;
-    return this.fakeId;
+    this.recipeInit();
   }
 
   private fakeInit() {
-    this.recipes.push(new Recipe( 0, 'Zapékané brambory', 'Brambory uvaříme ve slupce, oloupeme a nakrájíme na plátky. Šest vajec uvaříme natvrdo, sloupneme a nakrájíme také na plátky Cibuli oloupeme, nakrájíme najemno a zpěníme na másle. Nivu nastrouháme na hrubém struhadle. Fazole necháme okapat. Česnek oloupeme a prolisujeme.\n' +
+    this.recipes.push(new Recipe( 'as', 'Zapékané brambory', 'Brambory uvaříme ve slupce, oloupeme a nakrájíme na plátky. Šest vajec uvaříme natvrdo, sloupneme a nakrájíme také na plátky Cibuli oloupeme, nakrájíme najemno a zpěníme na másle. Nivu nastrouháme na hrubém struhadle. Fazole necháme okapat. Česnek oloupeme a prolisujeme.\n' +
       '\n' +
       'Připravíme si zálivku. V misce promícháme jogurt se zakysanou smetanou a syrovým vejcem. Vmícháme česnek, červenou mletou papriku a strouhaný parmazán.\n' +
       '\n' +
@@ -33,9 +27,23 @@ export class RecipeService {
       'Zapékané brambory s vejci můžeme podávat jako přílohu k pečené drůbeži, ale i jako samostatný pokrm se zeleninovými saláty.\n' +
       '\n' +
       'a', [new IngredientModel('Brambory', 250, 0), new IngredientModel('Vepřová panenka', 500, 0), new IngredientModel('Máslo', 125, 0)],  false, '', new Date(), 'https://data.labuznik.cz/labuznik/images/400x300/18137.jpg?1'));
-    this.recipes.push(new Recipe( 1, 'nazev receptu 1', 'popis receptu 1',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
-    this.recipes.push(new Recipe( 2, 'nazev receptu 2', 'popis receptu 2',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
-    this.recipes.push(new Recipe( 3, 'nazev receptu 3',  'popis receptu 3',  null, false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
+    this.recipes.push(new Recipe( 'asdasd', 'nazev receptu 1', 'popis receptu 1',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
+    this.recipes.push(new Recipe( 'asda-asda', 'nazev receptu 2', 'popis receptu 2',null,   false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
+    this.recipes.push(new Recipe( 'asdasddasda', 'nazev receptu 3',  'popis receptu 3',  null, false, '', new Date(), 'https://www.ffacademy.cz/wp-content/uploads/2018/07/AdobeStock_68106280-400x300.jpeg'));
+  }
+
+  private recipeInit(): void {
+    this.http.get('/api/recipes').pipe(
+      map(recipe => {
+        console.log(recipe);
+        return recipe;
+      })
+    ).toPromise()
+      .then(
+        (recipes: Recipe[]) => {
+          this.recipes = recipes;
+        }
+    )
   }
 
   public getRecipes(onlyUser?: boolean): Recipe[]{
@@ -47,12 +55,16 @@ export class RecipeService {
 
 
 
-  public getRecipe(recipeId: number): Recipe | null {
-    return this.recipes.find((recipe) => recipe.id === recipeId)
+  public getRecipe(recipeId: string): Recipe | null {
+    return this.recipes.find((recipe: Recipe) => {
+      console.log("toto", recipe, recipeId);
+      return recipe._id === recipeId
+
+    })
   }
 
   public addRecipe(recipe: Partial<Recipe>): Observable<any>{
-    return this.http.post('recipe', {recipe})
+    return this.http.post('/api/recipes', {recipe})
   }
 
   public updateRecipe(updatedRecipe: Recipe, name: string, description: string, ingredients: IngredientModel[] | null, isPrivate: boolean, image: any | null) {

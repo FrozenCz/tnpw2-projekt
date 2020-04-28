@@ -49,24 +49,11 @@ export class UsersController {
   }
 
   private async createToken(user: User): Promise<string> {
-    const authJwtToken = jwt.sign({email: user.email}, JWT_SECRET);
+    let {passwordHash, token, ...sanitizedUser} = user['_doc'];
+    const authJwtToken = jwt.sign(sanitizedUser, JWT_SECRET);
     if (await this.usersDB.updateUser(user._id, {token: authJwtToken})) {
       return authJwtToken;
     }
-  }
-
-
-  private async createHashPassword(passwordPlainText: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      password(passwordPlainText).hash(
-        (err, hash) => {
-          if (err) {
-            reject(new Error('Nepodařilo se vytvořit heslo'))
-          }
-          resolve(hash)
-        }
-      )
-    })
   }
 
   private createHash(pass: string): string {

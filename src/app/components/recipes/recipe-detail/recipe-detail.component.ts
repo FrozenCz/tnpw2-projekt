@@ -15,7 +15,7 @@ export class RecipeDetailComponent implements OnInit {
 
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute, private authService: AuthService) {
-    this.recipe = recipeService.getRecipe(+this.route.snapshot.params.id)
+    this.recipe = recipeService.getRecipe(this.route.snapshot.params.id)
   }
 
   ngOnInit(): void {

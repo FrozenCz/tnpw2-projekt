@@ -8,7 +8,7 @@ import {IsArray, IsBoolean, IsDate, IsMongoId, IsString} from 'class-validator';
 export class Recipe {
   @IsString()
   @IsMongoId()
-  private _id: number;
+  private _id: string;
   @IsString()
   private _name: string;
   @IsArray()
@@ -26,7 +26,7 @@ export class Recipe {
   private _imagePath: string;
 
 
-  constructor(id: number, name: string, description: string, ingredients: IngredientModel[], isPrivate: boolean, owner: string, date: Date, imagePath: string) {
+  constructor(id: string, name: string, description: string, ingredients: IngredientModel[], isPrivate: boolean, owner: string, date: Date, imagePath: string) {
     this._id = id;
     this._name = name;
     this._ingredients = ingredients;
@@ -37,11 +37,11 @@ export class Recipe {
     this._imagePath = imagePath;
   }
 
-  get id(): number {
+  get id(): string {
     return this._id;
   }
 
-  set id(value: number) {
+  set id(value: string) {
     this._id = value;
   }
 

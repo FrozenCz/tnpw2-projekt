@@ -11,7 +11,13 @@ export class RecipesRepository {
   }
 
   async addRecipe(recipe: Partial<Recipe>) {
-    return 'creating recipe';
+    return this.recipeModel.create(recipe)
   }
+
+  async findAll(): Promise<Recipe[]>{
+    return this.recipeModel.find({isPrivate: false})
+  }
+
+
 
 }

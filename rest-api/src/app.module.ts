@@ -6,10 +6,13 @@ import {MongooseModule} from "@nestjs/mongoose";
 import {MONGO_CONNECTION} from "./constants";
 import {GetUserMiddleware} from "./middleware/get-user.middleware";
 import {UsersController} from "./users/controllers/users.controller";
+import {RecipesModule} from "./recipes/recipes.module";
+import {RecipesController} from "./recipes/controllers/recipes.controller";
 
 @Module({
   imports: [
     UsersModule,
+    RecipesModule,
     MongooseModule.forRoot(MONGO_CONNECTION),
   ],
   controllers: [AppController],
@@ -21,8 +24,8 @@ export class AppModule implements NestModule{
     consumer
       .apply(GetUserMiddleware)
       .forRoutes(
-        UsersController
+        UsersController,
+        RecipesController
       )
-
   }
 }
