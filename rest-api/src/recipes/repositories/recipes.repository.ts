@@ -15,9 +15,33 @@ export class RecipesRepository {
   }
 
   async findAll(): Promise<Recipe[]>{
-    return this.recipeModel.find({isPrivate: false})
+    let recipes: Model<Recipe>;
+    recipes = this.recipeModel.find({isPrivate: false});
+    return recipes;
   }
 
+  async getRecipe(recipeId: string, userId?: string){
+    if(userId) return this.recipeModel.findOne({_id: recipeId, owner: userId})
+    return this.recipeModel.findOne({_id: recipeId, isPrivate:false})
+  }
+
+  async getUserRecipes(userId: string){
+    return this.recipeModel.find({owner: userId})
+  }
+
+  async updateRecipe(recipe: Partial<Recipe>) {
+    return this.recipeModel.findByIdAndUpdate({_id: recipe['_id']}, {
+      name: recipe['_name'],
+      ingredients: recipe['_ingredients'],
+      imagePath: recipe['_imagePath'],
+      isPrivate: recipe['_isPrivate'],
+      description: recipe['_description']
+    }, {new: true});
+  }
+
+  async deleteRecipe(recipeId: string){
+    return this.recipeModel.deleteOne({_id: recipeId})
+  }
 
 
 }

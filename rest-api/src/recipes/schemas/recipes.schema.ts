@@ -11,5 +11,6 @@ export const RecipesSchema = new mongoose.Schema({
   },
   date: Date,
   imagePath: {type: String, trim:true}
-});
+},
+  {versionKey: false});
 

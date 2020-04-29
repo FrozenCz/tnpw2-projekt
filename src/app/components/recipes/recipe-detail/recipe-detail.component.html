@@ -1,6 +1,6 @@
 <div fxLayout="column" class="webContainer" *ngIf="recipe; else nenalezen">
   <div>
-    <button mat-raised-button routerLink="edit" color="accent" *ngIf="isLogged() && recipe.owner == userId()">Editovat</button>
+    <button mat-raised-button routerLink="edit" color="accent" *ngIf="isLogged() && owner">Editovat</button>
   </div>
 <div fxLayout="row" fxLayoutAlign="space-between">
   <div>
@@ -15,11 +15,13 @@
     <p>{{recipe.description}}</p>
   </div>
   <div>
-    <img src="{{recipe.imagePath}}">
+    <img src="{{recipe.imagePath}}" style="max-height: 250px; max-width: 450px;">
   </div>
 </div>
 </div>
 
 <ng-template #nenalezen>
-  Požadovaný recept nenalezen
+  <div *ngIf="nenalezeno">
+    Požadovaný recept nenalezen
+  </div>
 </ng-template>

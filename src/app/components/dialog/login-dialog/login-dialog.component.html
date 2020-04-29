@@ -7,7 +7,7 @@
           Přihlašovací jméno
         </mat-label>
         <input matInput formControlName="login" [(ngModel)]="data.email">
-        <mat-error *ngIf="loginNotFound">Uživatel nenalezen</mat-error>
+        <mat-error>Špatný uživatel</mat-error>
       </mat-form-field>
       <mat-form-field fxFlexFill>
         <mat-label>
@@ -15,7 +15,7 @@
           Heslo
         </mat-label>
         <input matInput type="password" formControlName="password" [(ngModel)]="data.password">
-        <mat-error *ngIf="badPassword">Špatné heslo</mat-error>
+        <mat-error>Špatné heslo</mat-error>
       </mat-form-field>
 
     </div>

@@ -13,8 +13,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./login-dialog.component.scss']
 })
 export class LoginDialogComponent implements OnInit {
-  badPassword: boolean = false;
-  loginNotFound: boolean = false;
   dialogOpened: boolean = true;
 
   @Input() loginForm: FormGroup;
@@ -22,7 +20,7 @@ export class LoginDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>, public authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
     this.loginForm = new FormGroup({
-        login: new FormControl(null, [Validators.required]),
+        login: new FormControl(null, [Validators.required, Validators.email]),
         password: new FormControl(null, [Validators.required])
       }
     );
@@ -33,23 +31,35 @@ export class LoginDialogComponent implements OnInit {
 
 
   ngOnInit(): void {
+
   }
 
 
   onLogin(): void {
-    this.authService.logIn(this.data.email, this.data.password).subscribe(
-      (reply: any) => {
-        this.dialogRef.close();
-        localStorage.setItem("authJwtToken", reply.token);
-        this.authService.setLoginMode(true);
-        this.snackBar.open('Uživatel úspěšně přihlášen', 'Přihlášen', {
-          duration: 2000,
-          panelClass: 'successSnackBar',
-        });
-      }, err => {
-        console.log('login failed', err);
-      }
-    )
+    this.authService.logIn(this.data.email, this.data.password).toPromise()
+      .then(
+        (reply: any) => {
+          if(reply.token){
+            this.dialogRef.close();
+            localStorage.setItem("authJwtToken", reply.token);
+            this.authService.setLoginMode(true);
+            this.snackBar.open('Uživatel úspěšně přihlášen', 'Přihlášen', {
+              duration: 2000,
+              panelClass: 'successSnackBar',
+            });
+          }else{
+            if(reply.response.message === 'Spatne heslo') {
+              this.loginForm.controls['password'].setErrors({'incorrect':true})
+            }else{
+              this.loginForm.controls['login'].setErrors({'incorrect': true});
+
+            }
+          }
+
+        }, err => {
+          console.log('login failed', err);
+        }
+      )
   }
 
 

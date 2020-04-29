@@ -28,11 +28,17 @@ export class RecipeEditComponent implements OnInit {
 
 
   constructor(private recipeService: RecipeService, private matSnackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) {
-    this.id = route.snapshot.params.id ? +route.snapshot.params.id : null;
-    if (this.id != null) {
-      this.recipe = recipeService.getRecipe(this.id);
-    }
     this.initForm();
+    this.id = route.snapshot.params.id ? route.snapshot.params.id : null;
+    if (this.id != null) {
+      recipeService.getRecipe(this.id).then(
+        (recipe) => {
+          this.recipe = recipe;
+          this.initForm();
+        }
+      )
+    }
+
   }
 
   ngOnInit(): void {
@@ -41,14 +47,14 @@ export class RecipeEditComponent implements OnInit {
   private initForm() {
     let recipeName = '';
     let recipeDescrition = '';
+    let recipeImage = '';
     let ingredients = new FormArray([]);
     let isPrivate = true;
 
-    console.log(this.recipe);
     if (this.recipe) {
       recipeName = this.recipe.name;
       recipeDescrition = this.recipe.description;
-      this.recipeImage = this.recipe.imagePath;
+      recipeImage = this.recipe.imagePath;
       if (this.recipe['ingredients']) {
         for (const ingredient of this.recipe.ingredients) {
           ingredients.push(
@@ -66,7 +72,7 @@ export class RecipeEditComponent implements OnInit {
     this.newRecipeForm = new FormGroup({
       'name': new FormControl(recipeName, [Validators.required]),
       'description': new FormControl(recipeDescrition, [Validators.required]),
-      'imagePath': new FormControl(null),
+      'imagePath': new FormControl(recipeImage),
       ingredients,
       'isPrivate': new FormControl(isPrivate)
     })
@@ -154,12 +160,25 @@ export class RecipeEditComponent implements OnInit {
 
   private updateRecipe(recipe: Recipe) {
     this.recipeService.updateRecipe(
-      this.recipe, this.newRecipeForm.value.name, this.newRecipeForm.value.description,
-      this.newRecipeForm.value.ingredients, this.newRecipeForm.value.isPrivate, this.croppedImage)
+      recipe, this.newRecipeForm.value.name, this.newRecipeForm.value.description,
+      this.newRecipeForm.value.ingredients, this.newRecipeForm.value.isPrivate, this.newRecipeForm.value.imagePath).toPromise()
       .then(
         () => {
         this.matSnackBar.open('Recept upraven', 'OK', {duration: 2000, panelClass: 'successSnackBar'});
         this.router.navigate(['../'], {relativeTo: this.route});
       })
+  }
+
+  onDelete() {
+    if(confirm('Opravdu chcete smazat tento recept? ')){
+      this.recipeService.deleteRecipe(this.recipe).toPromise()
+        .then(
+          () => {
+            this.matSnackBar.open('Recept smazán', 'OK', {duration: 2000, panelClass: 'successSnackBar'});
+            this.router.navigateByUrl('/moje-recepty');
+          }
+        )
+        .catch()
+    }
   }
 }

@@ -1,5 +1,5 @@
 export enum EnumAmountType {
-  g, kg, ml, l,ks
+  g, kg, ml, l,ks, lžička,lžíce, "dle chuti"
 }
 
 export class IngredientModel {

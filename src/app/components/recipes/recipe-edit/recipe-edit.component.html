@@ -66,9 +66,10 @@
   </div>
 
 
-  <div fxLayoutAlign="row">
-    <button mat-raised-button color="{{ this.recipe ? 'warn' : 'accent' }}" type="submit" [disabled]="!newRecipeForm.valid || getControls('ingredients').length == 0">
+  <div fxLayoutAlign="row" fxLayoutGap="10px">
+    <button mat-raised-button color="{{ this.recipe ? 'accent' : 'accent' }}" type="submit" [disabled]="!newRecipeForm.valid || getControls('ingredients').length == 0">
       {{ this.recipe ? 'Upravit recept' : 'Přidat recept' }}
     </button>
+    <button mat-raised-button color="warn" type="button" *ngIf="this.recipe" (click)="onDelete()">Smazat</button>
   </div>
 </form>

@@ -30,7 +30,7 @@ export class UsersController {
     if(!bcrypt.compareSync(plainTextPassword, user.passwordHash))
       return new UnauthorizedException("Spatne heslo");
 
-    const authJwtToken = await this.createToken(user);
+    const authJwtToken = await this.createToken(user, true);
     return {token: authJwtToken};
   }
 
@@ -43,13 +43,16 @@ export class UsersController {
 
     let newUser = await this.usersDB.addUser(user.email, pass);
     if (newUser) {
-      const authToken = await this.createToken(newUser);
+      const authToken = await this.createToken(newUser, false);
       return {token: authToken};
     }
   }
 
-  private async createToken(user: User): Promise<string> {
-    let {passwordHash, token, ...sanitizedUser} = user['_doc'];
+  private async createToken(user: User, fromLogin: boolean): Promise<string> {
+    let userModified = user;
+    if(fromLogin) userModified = user['_doc'];
+
+    let {passwordHash, token, ...sanitizedUser} = userModified;
     const authJwtToken = jwt.sign(sanitizedUser, JWT_SECRET);
     if (await this.usersDB.updateUser(user._id, {token: authJwtToken})) {
       return authJwtToken;

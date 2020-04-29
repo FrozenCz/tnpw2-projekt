@@ -22,7 +22,6 @@ export class GetUserMiddleware implements NestMiddleware {
       }
     }
     catch (err) {
-      console.log("error s overenim ", err);
     }
     next();
   }

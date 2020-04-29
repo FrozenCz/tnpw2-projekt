@@ -14,6 +14,14 @@ export class AuthService {
     return this._isLogged;
   }
 
+  getUserId(): string | void{
+    const token = localStorage.getItem('authJwtToken');
+    if(token) {
+      const infoFromToken = jwt_decode(token);
+      return infoFromToken._id;
+    }
+    }
+
   private _isLogged: boolean = false
 
   constructor(private http: HttpClient) {

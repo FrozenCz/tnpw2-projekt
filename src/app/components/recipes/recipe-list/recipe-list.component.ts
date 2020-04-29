@@ -8,25 +8,26 @@ import {Recipe} from "../../../../../shared/recipe";
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss']
 })
-export class RecipeListComponent implements OnInit {
+export class RecipeListComponent {
   onlyUser = false;
+  recipes: Recipe[] = [];
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
+  constructor(private route: ActivatedRoute, public recipeService: RecipeService) {
     route.data.subscribe((data) => {
       if(data && data.onlyUser === true){
         this.onlyUser = true;
+        this.recipeService.getUserRecipes().then(
+          (recipes) => {
+            this.recipes = recipes;
+          }
+        )
       }else{
-        this.onlyUser = false;
+        this.recipeService.getRecipes().then(
+          (recipes) => {
+            this.recipes = recipes;
+          }
+        )
       }
     })
   }
-
-  ngOnInit(): void {
-
-  }
-
-  public getRecepies(): Recipe[] {
-    return this.recipeService.getRecipes(this.onlyUser);
-  }
-
 }
