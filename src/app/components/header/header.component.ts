@@ -30,4 +30,10 @@ export class HeaderComponent implements OnInit {
     });
 
   }
+
+  removeAccount() {
+    if(confirm('Opravdu chcete smazat účet?')){
+      console.log('mazu');
+    }
+  }
 }

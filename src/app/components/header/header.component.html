@@ -6,7 +6,8 @@
       <a mat-button *ngIf="isLogged()" [routerLink]="'/moje-recepty'" routerLinkActive="active">Moje recepty</a>
     </div>
     <span fxFlex></span>
-    <div>
+    <div fxLayoutGap="10px">
+      <button mat-raised-button color="warn" *ngIf="isLogged()" type="button" (click)="removeAccount()">Zrušit účet</button>
       <button mat-raised-button color="accent" routerLink="/novy-recept" *ngIf="isLogged()" routerLinkActive="hide">Přidat recept</button>
       <a mat-button [routerLink]="'/kontakt'" routerLinkActive="active">Kontakt</a>
       <button mat-icon-button (click)="openLogin()">
