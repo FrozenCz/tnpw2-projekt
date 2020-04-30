@@ -1,7 +1,8 @@
 <mat-grid-list cols="4" rowHeight="185" gutterSize="10">
   <mat-grid-tile style="overflow:hidden;" *ngFor="let recipe of recipes" routerLink="detail/{{recipe.id}}">
     <mat-grid-tile-header style="overflow: hidden;height: 48px;">
-      {{ (recipe.name.length > 30) ? (recipe.name | slice:0:30)+'..' : (recipe.name) }}
+<!--      {{ (recipe.name.length > 30) ? (recipe.name | slice:0:30)+'..' : (recipe.name) }}-->
+      {{ (recipe.name) }}
     </mat-grid-tile-header>
     <img src="{{recipe.imagePath}}" style="height: 100%;width: 100%;">
    <mat-grid-tile-footer>

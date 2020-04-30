@@ -10,6 +10,8 @@ import {isJWT} from "class-validator";
 })
 
 export class AuthService {
+  private _isLogged: boolean = false
+
   get isLogged(): boolean {
     return this._isLogged;
   }
@@ -22,7 +24,6 @@ export class AuthService {
     }
     }
 
-  private _isLogged: boolean = false
 
   constructor(private http: HttpClient) {
     this.loadUserFromLocalStorage();

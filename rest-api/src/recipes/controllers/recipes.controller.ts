@@ -16,7 +16,6 @@ import {User} from '../../../../shared/user';
 import {Recipe} from '../../../../shared/recipe';
 import {RecipesRepository} from '../repositories/recipes.repository';
 import {AuthenticationGuard} from "../../guards/authentication.guard";
-import {A} from '@angular/cdk/keycodes';
 
 
 @Controller("recipes")
@@ -27,19 +26,28 @@ export class RecipesController {
 
   @Post()
   @UseGuards(AuthenticationGuard)
-  async createRecipe(@Request() req, @Body("recipe") recipe: Partial<Recipe>) {
+  async createRecipe(@Request() req, @Body("recipe") recipe: Recipe) {
     const user = req.user;
     if(!user){
       return new UnauthorizedException();
     }
-    recipe.owner = user._id;
-    recipe.date = new Date();
-    return this.recipeDB.addRecipe(recipe)
+
+    const recipeToCreate: Partial<Recipe> = {
+      name: recipe.name,
+      description: recipe.description,
+      isPrivate: recipe.isPrivate,
+      imagePath:recipe.imagePath,
+      ingredients:recipe.ingredients,
+      owner: user._id,
+      date: new Date()
+    }
+
+    return this.recipeDB.addRecipe(recipeToCreate)
   }
 
   @Put(":recipeId")
   @UseGuards(AuthenticationGuard)
-  async updateRecipe(@Request() req, @Param('recipeId') recipeId: string, @Body("recipe") recipe: Partial<Recipe>) {
+  async updateRecipe(@Request() req, @Param('recipeId') recipeId: string, @Body("recipe") recipe: Recipe) {
     let userId = null;
     if(req.user && req.user._id) userId = req.user._id;
     const recipeInDb: Recipe = await this.recipeDB.getRecipe(recipeId, userId);

@@ -29,13 +29,17 @@ export class RecipesRepository {
     return this.recipeModel.find({owner: userId})
   }
 
-  async updateRecipe(recipe: Partial<Recipe>) {
+  async deleteAllFromUser(userId: string){
+    return this.recipeModel.deleteMany({owner: userId})
+  }
+
+  async updateRecipe(recipe: Recipe) {
     return this.recipeModel.findByIdAndUpdate({_id: recipe['_id']}, {
-      name: recipe['_name'],
-      ingredients: recipe['_ingredients'],
-      imagePath: recipe['_imagePath'],
-      isPrivate: recipe['_isPrivate'],
-      description: recipe['_description']
+      name: recipe.name,
+      ingredients: recipe.ingredients,
+      imagePath: recipe.imagePath,
+      isPrivate: recipe.isPrivate,
+      description: recipe.description
     }, {new: true});
   }
 

@@ -1,4 +1,14 @@
-import {Body,ConflictException,Controller,Get,Post,UnauthorizedException} from "@nestjs/common";
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post, Request,
+  UnauthorizedException,
+  UseGuards
+} from "@nestjs/common";
 import {User} from "../../../../shared/user";
 import {UsersRepository} from "../repositories/users.repository";
 import {InjectModel} from '@nestjs/mongoose';
@@ -7,12 +17,14 @@ import * as password from 'password-hash-and-salt';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import {JWT_SECRET} from '../../constants';
+import {AuthenticationGuard} from '../../guards/authentication.guard';
+import {RecipesRepository} from '../../recipes/repositories/recipes.repository';
 
 
 
 @Controller("users")
 export class UsersController {
-  constructor(@InjectModel('User') private userModel: Model, private usersDB: UsersRepository) {
+  constructor(@InjectModel('User') private userModel: Model, private usersDB: UsersRepository, private recipeDB: RecipesRepository) {
   }
 
   @Get()
@@ -47,6 +59,16 @@ export class UsersController {
       return {token: authToken};
     }
   }
+
+
+
+  @Delete(":userId")
+  @UseGuards(AuthenticationGuard)
+  async deleteUser(@Param("userId") userId: string) {
+     await this.recipeDB.deleteAllFromUser(userId);
+     return this.usersDB.removeUser(userId);
+  }
+
 
   private async createToken(user: User, fromLogin: boolean): Promise<string> {
     let userModified = user;

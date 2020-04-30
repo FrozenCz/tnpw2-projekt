@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {LoginDialogComponent} from '../dialog/login-dialog/login-dialog.component';
 import {AuthService} from "../../auth.service";
+import {UsersService} from '../users/users.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -12,7 +15,7 @@ import {AuthService} from "../../auth.service";
 export class HeaderComponent implements OnInit {
 
 
-  constructor(public dialog: MatDialog, private authService: AuthService) {
+  constructor(public dialog: MatDialog, private authService: AuthService, private matSnackBar: MatSnackBar, private usersService: UsersService, private router: Router) {
 
   }
 
@@ -33,7 +36,18 @@ export class HeaderComponent implements OnInit {
 
   removeAccount() {
     if(confirm('Opravdu chcete smazat účet?')){
-      console.log('mazu');
+      this.usersService.deleteUser().toPromise()
+        .then(
+          (result) => {
+            localStorage.removeItem('authJwtToken');
+            this.authService.setLoginMode(false);
+            this.router.navigateByUrl('/');
+            this.matSnackBar.open('Uživatel odstraněn', 'OK', {duration: 2000, panelClass: 'successSnackBar'});
+          },
+          err => {
+            console.log(err);
+          }
+        )
     }
   }
 }

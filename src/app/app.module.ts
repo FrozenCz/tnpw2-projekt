@@ -24,9 +24,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import {MatListModule} from "@angular/material/list";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatCardModule} from "@angular/material/card";
-import {SafeUrlPipe} from './pipes/safe-url.pipe';
-import {YouTubePlayerModule} from '@angular/youtube-player';
-import {YoutubeIdExtractPipe} from './pipes/youtubeIdExtract.pipe';
 import {MatGridListModule} from "@angular/material/grid-list";
 import { ContactComponent } from './components/contact/contact.component';
 import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
@@ -55,8 +52,6 @@ import {AuthInterceptor} from './auth.interceptor';
     LoginDialogComponent,
     CreateUserComponent,
     FooterComponent,
-    SafeUrlPipe,
-    YoutubeIdExtractPipe,
     ContactComponent,
     RecipesComponent,
     RecipeListComponent,
@@ -79,7 +74,6 @@ import {AuthInterceptor} from './auth.interceptor';
     MatListModule,
     MatSnackBarModule,
     MatCardModule,
-    YouTubePlayerModule,
     MatGridListModule,
     MatPaginatorModule,
     MatChipsModule,
