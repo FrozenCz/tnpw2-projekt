@@ -21,8 +21,7 @@ export class RecipesRepository {
   }
 
   async getRecipe(recipeId: string, userId?: string){
-    if(userId) return this.recipeModel.findOne({_id: recipeId, owner: userId})
-    return this.recipeModel.findOne({_id: recipeId, isPrivate:false})
+    return this.recipeModel.findOne({_id: recipeId, $or: [{isPrivate:false}, {owner: userId}]})
   }
 
   async getUserRecipes(userId: string){
